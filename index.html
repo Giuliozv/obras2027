@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obras Literárias – Vestibular UFPR 2027 | Prof. Marco Dias</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --papiro: #2a1a0a;
+    --papiro-mid: #3d2510;
+    --papiro-light: #5c3a1e;
+    --gold: #d4a017;
+    --gold-bright: #f0c040;
+    --gold-dim: #8a6510;
+    --neon-cyan: #00ffe0;
+    --neon-orange: #ff6b1a;
+    --neon-blue: #1af0ff;
+    --text-parchment: #e8d5a3;
+    --text-dim: #a08060;
+    --accent-red: #c0392b;
+    --glass: rgba(255,255,255,0.04);
+    --border-glow: rgba(212,160,23,0.4);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--papiro);
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(90,50,10,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(60,30,5,0.4) 0%, transparent 55%),
+      url("image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    color: var(--text-parchment);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content:'';
+    position:fixed; inset:0; z-index:1000; pointer-events:none;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+  }
+
+  #sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 56px;
+    background: linear-gradient(180deg, rgba(20,10,2,0.98) 0%, rgba(35,18,5,0.98) 100%);
+    border-right: 1px solid rgba(212,160,23,0.25);
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+
+  #sidebar-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.8;
+    padding: 0 8px;
+    border-left: 2px solid var(--gold-dim);
+    text-shadow: 0 0 12px rgba(212,160,23,0.6);
+  }
+
+  #sidebar-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    margin: 12px 0;
+    animation: pulse-line 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-line {
+    0%,100%{ opacity:0.4; } 50%{ opacity:1; }
+  }
+
+  header {
+    margin-left: 56px;
+    padding: 40px 60px 30px;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid rgba(212,160,23,0.2);
+    background: linear-gradient(180deg, rgba(10,5,0,0.6) 0%, transparent 100%);
+  }
+
+  header::after {
+    content:'';
+    position:absolute; bottom:-1px; left:10%; right:10%; height:1px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--neon-cyan), var(--gold), transparent);
+    animation: glow-line 3s ease-in-out infinite;
+  }
+  @keyframes glow-line {
+    0%,100%{ opacity:0.5; filter:blur(0px); }
+    50%{ opacity:1; filter:blur(1px); }
+  }
+
+  .header-badge {
+    display:inline-block;
+    font-family:'Share Tech Mono', monospace;
+    font-size:0.65rem;
+    color: var(--neon-cyan);
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    border: 1px solid rgba(0,255,224,0.3);
+    padding: 4px 16px;
+    margin-bottom: 20px;
+    background: rgba(0,255,224,0.05);
+    animation: flicker 4s infinite;
+  }
+
+  @keyframes flicker {
+    0%,95%,100%{ opacity:1; }
+    96%{ opacity:0.3; }
+    97%{ opacity:1; }
+    98%{ opacity:0.5; }
+    99%{ opacity:1; }
+  }
+
+  h1.site-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 3vw, 2.6rem);
+    font-weight: 900;
+    color: var(--gold-bright);
+    text-shadow:
+      0 0 30px rgba(240,192,64,0.8),
+      0 0 60px rgba(240,192,64,0.3),
+      2px 2px 0 rgba(0,0,0,0.8);
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--text-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .header-deco {
+    display:flex; align-items:center; justify-content:center; gap:16px;
+    margin-top:18px;
+  }
+  .deco-line { flex:1; max-width:200px; height:1px; background:linear-gradient(90deg, transparent, var(--gold-dim)); }
+  .deco-line.r { background:linear-gradient(90deg, var(--gold-dim), transparent); }
+  .deco-diamond {
+    width:8px; height:8px; background:var(--gold);
+    transform:rotate(45deg);
+    box-shadow: 0 0 12px var(--gold);
+  }
+
+  main {
+    margin-left: 56px;
+    padding: 50px 40px;
+    max-width: 1400px;
+  }
+
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--neon-orange);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    text-align: center;
+    display:flex; align-items:center; justify-content:center; gap:20px;
+  }
+  .section-label::before,.section-label::after {
+    content:'';
+    flex:1; max-width:300px; height:1px;
+    background:linear-gradient(90deg, transparent, var(--neon-orange));
+  }
+  .section-label::after { background:linear-gradient(90deg, var(--neon-orange), transparent); }
+
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 32px;
+  }
+
+  .book-card {
+    position: relative;
+    background: linear-gradient(145deg, rgba(50,28,8,0.9) 0%, rgba(30,15,4,0.95) 100%);
+    border: 1px solid rgba(212,160,23,0.2);
+    border-radius: 2px;
+    overflow: visible;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .book-card::before {
+    content:'';
+    position:absolute; inset:-1px;
+    border-radius:2px;
+    background: linear-gradient(135deg, var(--gold), transparent 40%, transparent 60%, var(--neon-cyan));
+    opacity:0;
+    transition: opacity 0.4s;
+    z-index:-1;
+  }
+
+  .book-card:hover::before { opacity:0.5; }
+
+  .book-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0 20px 60px rgba(0,0,0,0.6),
+      0 0 30px rgba(212,160,23,0.15),
+      0 0 60px rgba(0,255,224,0.05);
+    border-color: rgba(212,160,23,0.5);
+  }
+
+  .card-header {
+    position:relative;
+    height: 220px;
+    overflow: hidden;
+    background: #1a0d03;
+  }
+
+  .card-header img {
+    width:100%; height:100%;
+    object-fit: cover;
+    object-position: top;
+    filter: sepia(20%) brightness(0.85) contrast(1.1);
+    transition: all 0.5s ease;
+  }
+
+  .book-card:hover .card-header img {
+    filter: sepia(0%) brightness(1) contrast(1.1);
+    transform: scale(1.05);
+  }
+
+  .card-header-overlay {
+    position:absolute; inset:0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(30,15,4,0.98) 100%);
+  }
+
+  .card-num {
+    position:absolute; top:12px; right:12px;
+    font-family:'Share Tech Mono', monospace;
+    font-size:0.65rem;
+    color: var(--neon-cyan);
+    background: rgba(0,0,0,0.7);
+    border: 1px solid rgba(0,255,224,0.3);
+    padding: 2px 8px;
+    letter-spacing:0.2em;
+  }
+
+  .card-body {
+    padding: 20px 22px;
+  }
+
+  .book-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold-bright);
+    line-height: 1.3;
+    text-shadow: 0 0 20px rgba(240,192,64,0.4);
+    margin-bottom: 4px;
+  }
+
+  .book-author {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--neon-cyan);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .book-author::before {
+    content:'';
+    display:inline-block;
+    width:16px; height:1px;
+    background: var(--neon-cyan);
+    box-shadow: 0 0 6px var(--neon-cyan);
+  }
+
+  .book-year {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--neon-orange);
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+
+  .book-summary {
+    font-size: 0.88rem;
+    color: var(--text-parchment);
+    line-height: 1.65;
+    opacity: 0.85;
+    margin-bottom: 20px;
+  }
+
+  .cubes-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--gold-dim);
+    letter-spacing: 0.3em;
+    text-transform:uppercase;
+    margin-bottom: 14px;
+    padding-left: 2px;
+  }
+
+  .cubes-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+  }
+
+  .cube-wrapper {
+    perspective: 600px;
+    width: 72px;
+    height: 72px;
+    flex-shrink:0;
+  }
+
+  .cube {
+    width:100%; height:100%;
+    position:relative;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .cube-wrapper:hover .cube {
+    transform: rotateY(180deg) rotateX(10deg);
+  }
+
+  .cube-face {
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    border: 1px solid;
+    font-family:'Rajdhani', sans-serif;
+    font-size:0.62rem;
+    font-weight: 600;
+    text-align:center;
+    padding: 6px;
+    line-height:1.3;
+    backface-visibility: hidden;
+  }
+
+  .face-front {
+    background: linear-gradient(135deg, rgba(212,160,23,0.15), rgba(212,160,23,0.05));
+    border-color: rgba(212,160,23,0.5);
+    color: var(--gold-bright);
+    font-family:'Share Tech Mono', monospace;
+    font-size:0.55rem;
+    flex-direction:column; gap:3px;
+  }
+  .face-front-icon { font-size:1.3rem; display:block; }
+
+  .face-back {
+    background: linear-gradient(135deg, rgba(0,255,224,0.1), rgba(0,255,224,0.03));
+    border-color: rgba(0,255,224,0.4);
+    color: var(--text-parchment);
+    transform: rotateY(180deg);
+    font-size: 0.55rem;
+    line-height: 1.4;
+  }
+
+  .quiz-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, rgba(212,160,23,0.1), rgba(212,160,23,0.05));
+    border: 1px solid rgba(212,160,23,0.4);
+    color: var(--gold-bright);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .quiz-btn::before {
+    content:'';
+    position:absolute; inset:0;
+    background: linear-gradient(135deg, var(--gold), var(--neon-orange));
+    opacity:0;
+    transition: opacity 0.3s;
+  }
+
+  .quiz-btn:hover::before { opacity:0.15; }
+
+  .quiz-btn:hover {
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(212,160,23,0.3), inset 0 0 20px rgba(212,160,23,0.05);
+    color: white;
+  }
+
+  .quiz-btn span { position:relative; z-index:1; }
+
+  .modal-overlay {
+    display:none;
+    position:fixed; inset:0; z-index:2000;
+    background: rgba(5,2,0,0.92);
+    backdrop-filter: blur(8px);
+    align-items:center; justify-content:center;
+    padding: 20px;
+  }
+  .modal-overlay.active { display:flex; }
+
+  .modal {
+    background: linear-gradient(145deg, #2a1505 0%, #1a0c03 100%);
+    border: 1px solid rgba(212,160,23,0.3);
+    width: 100%; max-width: 680px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modal-in 0.4s cubic-bezier(0.23,1,0.32,1);
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-dim) transparent;
+  }
+
+  @keyframes modal-in {
+    from { opacity:0; transform:scale(0.9) translateY(20px); }
+    to { opacity:1; transform:scale(1) translateY(0); }
+  }
+
+  .modal::before {
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--neon-cyan), var(--gold), transparent);
+  }
+
+  .modal-header {
+    padding: 28px 32px 20px;
+    border-bottom: 1px solid rgba(212,160,23,0.15);
+    position:relative;
+  }
+
+  .modal-book-title {
+    font-family:'Cinzel', serif;
+    font-size:1.4rem;
+    font-weight:700;
+    color: var(--gold-bright);
+    text-shadow: 0 0 20px rgba(240,192,64,0.4);
+    margin-bottom:6px;
+  }
+
+  .modal-author {
+    font-family:'Rajdhani', sans-serif;
+    font-size:0.9rem;
+    color: var(--neon-cyan);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+  }
+
+  .modal-close {
+    position:absolute; top:20px; right:20px;
+    background:none; border:1px solid rgba(212,160,23,0.3);
+    color: var(--gold);
+    width:36px; height:36px;
+    cursor:pointer;
+    font-size:1.1rem;
+    display:flex; align-items:center; justify-content:center;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  }
+  .modal-close:hover { background:rgba(212,160,23,0.15); border-color:var(--gold); }
+
+  .modal-body { padding: 28px 32px; }
+
+  .quiz-counter {
+    font-family:'Share Tech Mono', monospace;
+    font-size:0.7rem;
+    color: var(--neon-orange);
+    letter-spacing:0.2em;
+    margin-bottom:24px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .quiz-counter .progress-bar {
+    flex:1; height:3px;
+    background:rgba(255,255,255,0.08);
+    position:relative; overflow:hidden;
+  }
+  .quiz-counter .progress-fill {
+    height:100%;
+    background: linear-gradient(90deg, var(--gold), var(--neon-cyan));
+    transition: width 0.5s ease;
+    box-shadow: 0 0 8px var(--neon-cyan);
+  }
+
+  .quiz-question {
+    font-family:'Rajdhani', sans-serif;
+    font-size:1.05rem;
+    font-weight:600;
+    color: var(--text-parchment);
+    line-height:1.6;
+    margin-bottom:24px;
+    padding-left:16px;
+    border-left:2px solid var(--gold);
+  }
+
+  .quiz-options { display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
+
+  .quiz-option {
+    padding:14px 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(212,160,23,0.2);
+    color: var(--text-parchment);
+    font-family:'Rajdhani', sans-serif;
+    font-size:0.92rem;
+    font-weight:500;
+    text-align:left;
+    cursor:pointer;
+    transition: all 0.25s;
+    position:relative;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+  .quiz-option:hover:not(:disabled) {
+    background:rgba(212,160,23,0.08);
+    border-color:var(--gold);
+    color: var(--gold-bright);
+    transform:translateX(4px);
+  }
+  .quiz-option.correct {
+    background:rgba(0,255,100,0.1);
+    border-color:#00ff64;
+    color:#00ff64;
+  }
+  .quiz-option.wrong {
+    background:rgba(255,60,60,0.1);
+    border-color:#ff3c3c;
+    color:#ff3c3c;
+  }
+  .quiz-option:disabled { cursor:default; }
+
+  .feedback-msg {
+    padding:12px 16px;
+    font-family:'Rajdhani', sans-serif;
+    font-size:0.88rem;
+    font-weight:600;
+    border-radius:1px;
+    margin-bottom:20px;
+    display:none;
+    letter-spacing:0.05em;
+  }
+  .feedback-msg.show { display:block; }
+  .feedback-msg.ok { background:rgba(0,255,100,0.08); border:1px solid rgba(0,255,100,0.3); color:#80ffb0; }
+  .feedback-msg.err { background:rgba(255,60,60,0.08); border:1px solid rgba(255,60,60,0.3); color:#ff9090; }
+
+  .next-btn {
+    padding:12px 32px;
+    background: linear-gradient(135deg, rgba(212,160,23,0.15), rgba(212,160,23,0.05));
+    border:1px solid var(--gold);
+    color: var(--gold-bright);
+    font-family:'Rajdhani', sans-serif;
+    font-size:0.9rem;
+    font-weight:700;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:all 0.3s;
+    display:none;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .next-btn.show { display:inline-block; }
+  .next-btn:hover { background:rgba(212,160,23,0.2); box-shadow:0 0 20px rgba(212,160,23,0.3); }
+
+  .quiz-result {
+    text-align:center;
+    padding:20px 0;
+    display:none;
+  }
+  .quiz-result.show { display:block; }
+
+  .result-score {
+    font-family:'Cinzel Decorative', serif;
+    font-size:3.5rem;
+    font-weight:900;
+    color: var(--gold-bright);
+    text-shadow: 0 0 40px rgba(240,192,64,0.8), 0 0 80px rgba(240,192,64,0.3);
+    line-height:1;
+    margin:10px 0;
+  }
+
+  .result-label {
+    font-family:'Share Tech Mono', monospace;
+    font-size:0.75rem;
+    color: var(--neon-cyan);
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    margin-bottom:20px;
+  }
+
+  .result-msg {
+    font-family:'Rajdhani', sans-serif;
+    font-size:1.05rem;
+    line-height:1.6;
+    margin-bottom:28px;
+    padding:16px;
+    border:1px solid rgba(212,160,23,0.2);
+    background:rgba(212,160,23,0.04);
+  }
+
+  .restart-btn {
+    padding:12px 28px;
+    background:none;
+    border:1px solid var(--neon-cyan);
+    color:var(--neon-cyan);
+    font-family:'Rajdhani', sans-serif;
+    font-size:0.88rem;
+    font-weight:700;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:all 0.3s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .restart-btn:hover { background:rgba(0,255,224,0.1); box-shadow:0 0 20px rgba(0,255,224,0.2); }
+
+  footer {
+    margin-left:56px;
+    padding:30px 60px;
+    border-top:1px solid rgba(212,160,23,0.15);
+    text-align:center;
+    background:linear-gradient(0deg, rgba(10,5,0,0.6), transparent);
+  }
+
+  .footer-deco { margin-bottom:16px; }
+
+  .footer-text {
+    font-family:'Cinzel', serif;
+    font-size:0.75rem;
+    color: var(--text-dim);
+    letter-spacing:0.15em;
+    line-height:2;
+  }
+  .footer-text strong { color:var(--gold-dim); }
+
+  .particle {
+    position:fixed;
+    width:2px; height:2px;
+    background: var(--gold);
+    border-radius:50%;
+    animation: float-up linear infinite;
+    opacity:0;
+    pointer-events:none;
+    z-index:1;
+  }
+  @keyframes float-up {
+    0%{ transform:translateY(100vh) translateX(0); opacity:0; }
+    10%{ opacity:0.6; }
+    90%{ opacity:0.2; }
+    100%{ transform:translateY(-100px) translateX(40px); opacity:0; }
+  }
+
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:var(--gold-dim); border-radius:2px; }
+
+  @media(max-width:768px) {
+    #sidebar { display:none; }
+    header,main,footer { margin-left:0; }
+    header { padding:30px 20px; }
+    main { padding:30px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<aside id="sidebar">
+  <div id="sidebar-line"></div>
+  <div id="sidebar-text">Professor Marco Dias 2026®</div>
+  <div id="sidebar-line"></div>
+</aside>
+
+<header>
+  <div class="header-badge">◈ Vestibular UFPR 2027 ◈</div>
+  <h1 class="site-title">Obras Literárias<br>do Vestibular</h1>
+  <p class="subtitle">Literatura Brasileira · Guia do Estudante</p>
+  <div class="header-deco">
+    <div class="deco-line"></div>
+    <div class="deco-diamond"></div>
+    <div class="deco-line r"></div>
+  </div>
+</header>
+
+<main>
+  <div class="section-label">Acervo de Obras</div>
+  <div class="books-grid" id="booksGrid"></div>
+</main>
+
+<footer>
+  <div class="footer-deco">
+    <div class="header-deco">
+      <div class="deco-line"></div>
+      <div class="deco-diamond"></div>
+      <div class="deco-line r"></div>
+    </div>
+  </div>
+  <div class="footer-text">
+    <strong>Prof. Marco Dias</strong> &nbsp;·&nbsp; 2026<br>
+    © Todos os direitos reservados &nbsp;·&nbsp; Material pedagógico exclusivo para fins educacionais<br>
+    Vestibular UFPR 2027 &nbsp;·&nbsp; Literatura Brasileira
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-book-title" id="modalTitle"></div>
+      <div class="modal-author" id="modalAuthor"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="quizContainer"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const books = [
+  {
+    id: 1,
+    title: "A Falência",
+    author: "Júlia Lopes de Almeida",
+    year: "1901",
+    coverUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Julia_Lopes_de_Almeida_1908.jpg/220px-Julia_Lopes_de_Almeida_1908.jpg",
+    coverColor: "#4a2800",
+    emoji: "📜",
+    summary: "Romance naturalista que retrata a decadência financeira e moral de uma família burguesa carioca do século XIX. Júlia Lopes de Almeida expõe as contradições de uma sociedade que valoriza as aparências em detrimento da ética.",
+    yearNote: "Publicado em 1901, auge do Naturalismo brasileiro",
+    cubes: [
+      { icon: "🏛️", label: "Escola", back: "Naturalismo / Realismo. Influência de Eça de Queirós e Zola na narrativa." },
+      { icon: "💰", label: "Tema", back: "Falência moral e financeira. Crítica à especulação imobiliária do Rio de Janeiro." },
+      { icon: "👩", label: "Autora", back: "Primeira mulher indicada à Academia Brasileira de Letras. Pioneira do feminismo literário." },
+      { icon: "🌆", label: "Cenário", back: "Rio de Janeiro da Belle Époque. Sociedade do Segundo Reinado em declínio." },
+      { icon: "📖", label: "Estilo", back: "Narrador onisciente, linguagem densa e psicológica, crítica ao sistema financeiro." }
+    ],
+    quiz: [
+      { q: "Qual é o tema central de 'A Falência' de Júlia Lopes de Almeida?", opts: ["A busca por amor proibido","A decadência financeira e moral da burguesia","A escravidão no Brasil colonial","A guerra entre famílias rivais"], ans: 1, exp: "O romance retrata a ruína financeira e moral da família Maia, simbolizando a falência ética de uma classe burguesa movida pelas aparências." },
+      { q: "A qual escola literária pertence 'A Falência'?", opts: ["Romantismo","Modernismo","Naturalismo/Realismo","Simbolismo"], ans: 2, exp: "A obra se insere no Naturalismo/Realismo, com forte influência de Eça de Queirós, apresentando um retrato crítico e científico da sociedade." },
+      { q: "Júlia Lopes de Almeida foi importante por qual razão histórica?", opts: ["Foi a primeira romancista a usar o dialeto nordestino","Foi a primeira mulher indicada à Academia Brasileira de Letras","Foi a fundadora do Modernismo feminino","Foi a primeira tradutora de Shakespeare no Brasil"], ans: 1, exp: "Apesar de sua enorme contribuição literária, foi preterida na fundação da ABL por ser mulher, o que representa uma das grandes injustiças da literatura brasileira." },
+      { q: "Qual cidade serve como cenário principal de 'A Falência'?", opts: ["São Paulo","Salvador","Rio de Janeiro","Recife"], ans: 2, exp: "O Rio de Janeiro da Belle Époque é o palco onde se desenvolve a trama, refletindo as contradições da sociedade carioca do final do século XIX." },
+      { q: "O personagem Gargantas em 'A Falência' representa:", opts: ["O herói romântico da classe operária","O especulador imobiliário sem escrúpulos","O sacerdote defensor da moral","O imigrante bem-sucedido"], ans: 1, exp: "Gargantas simboliza o capitalismo selvagem e a especulação financeira que corroem os valores morais da sociedade burguesa retratada na obra." }
+    ]
+  },
+  {
+    id: 2,
+    title: "Eu",
+    author: "Augusto dos Anjos",
+    year: "1912",
+    coverUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Augusto_dos_Anjos.jpg/220px-Augusto_dos_Anjos.jpg",
+    coverColor: "#1a0a2e",
+    emoji: "💀",
+    summary: "Único livro publicado em vida pelo 'Poeta da Morte', é uma obra singular no Parnasianismo e Simbolismo brasileiro. Com vocabulário científico e filosófico, expõe o pessimismo, a decomposição, a dor existencial e a angústia do ser humano diante da morte.",
+    yearNote: "Publicado em 1912, com apenas uma edição em vida do autor",
+    cubes: [
+      { icon: "💀", label: "Tema", back: "Morte, decomposição, dor e niilismo. Influência de Schopenhauer e Darwin." },
+      { icon: "🔬", label: "Vocabulário", back: "Termos científicos como 'bactéria', 'protoplasma' e 'anfisbena' inseridos na poesia." },
+      { icon: "🌑", label: "Escola", back: "Pré-Modernismo com traços do Simbolismo, Parnasianismo e Naturalismo científico." },
+      { icon: "🎭", label: "Tom", back: "Pessimismo radical. O eu-lírico enxerga a existência como sofrimento sem redenção." },
+      { icon: "📍", label: "Origem", back: "Paraibano, Augusto dos Anjos viveu em pobreza. Morreu aos 30 anos, em 1914." }
+    ],
+    quiz: [
+      { q: "Qual é a principal característica do vocabulário de Augusto dos Anjos em 'Eu'?", opts: ["Uso de termos regionalistas nordestinos","Inserção de termos científicos e filosóficos na poesia","Linguagem simples e popular do Modernismo","Arcaísmos do período colonial"], ans: 1, exp: "Augusto dos Anjos inovou ao usar termos como 'protoplasma', 'bactéria' e 'molécula' em sua poesia, criando uma linguagem única entre a ciência e a angústia existencial." },
+      { q: "'Eu' de Augusto dos Anjos pertence ao período literário chamado:", opts: ["Romantismo","Modernismo","Pré-Modernismo","Barroco"], ans: 2, exp: "A obra é classificada no Pré-Modernismo, com influências do Simbolismo, Parnasianismo e do Naturalismo científico de Darwin e Haeckel." },
+      { q: "O poema 'Psicologia de um Vencido' de Augusto dos Anjos expressa principalmente:", opts: ["A esperança na vida após a morte","O pessimismo e a visão do homem como ser condenado ao sofrimento","A celebração da natureza tropical","A exaltação do amor romântico"], ans: 1, exp: "O soneto é um dos mais pessimistas da literatura brasileira, com o eu-lírico se declarando um 'vencido' pela dor e pela futilidade da existência." },
+      { q: "Qual filósofo influenciou mais profundamente o pensamento de Augusto dos Anjos?", opts: ["Nietzsche","Hegel","Schopenhauer","Descartes"], ans: 2, exp: "Arthur Schopenhauer e seu pessimismo filosófico — a ideia de que a vida é essencialmente sofrimento — influenciaram diretamente a visão de mundo de Augusto dos Anjos." },
+      { q: "Como Augusto dos Anjos morreu e com quantos anos?", opts: ["Suicídio aos 45 anos","Tuberculose aos 30 anos","Acidente aos 38 anos","Velhice aos 72 anos"], ans: 1, exp: "Augusto dos Anjos faleceu em 1914, vítima de pneumonia, com apenas 30 anos. Sua morte precoce encerrou uma das obras mais originais da poesia brasileira." }
+    ]
+  },
+  {
+    id: 3,
+    title: "Noite na Taverna",
+    author: "Álvares de Azevedo",
+    year: "1855",
+    coverUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Alvares_de_Azevedo.jpg/220px-Alvares_de_Azevedo.jpg",
+    coverColor: "#1a0808",
+    emoji: "🍷",
+    summary: "Obra do Ultra-Romantismo brasileiro publicada postumamente, composta por sete contos narrados por jovens boêmios em uma taverna. Marcada pelo byronismo, traz temas de sexo, morte, necrofilia, libertinagem e pessimismo exacerbado.",
+    yearNote: "Publicado postumamente em 1855, escrito pelo autor entre 1850–1852",
+    cubes: [
+      { icon: "🌙", label: "Gênero", back: "Prosa poética do Ultra-Romantismo. Sete contos intercalados de horror e erotismo." },
+      { icon: "😈", label: "Temas", back: "Morte, libertinagem, necrofilia, satanismo e pessimismo byroniano." },
+      { icon: "🎭", label: "Estrutura", back: "Narrativa moldura: personagens contam histórias em uma taverna durante a noite." },
+      { icon: "🇬🇧", label: "Influência", back: "Lord Byron, Musset e o spleen francês. O herói byroniano fatalista e entediado." },
+      { icon: "📅", label: "Tragédia", back: "Álvares de Azevedo morreu aos 20 anos sem publicar nenhuma obra em vida." }
+    ],
+    quiz: [
+      { q: "Qual é a estrutura narrativa de 'Noite na Taverna'?", opts: ["Um único narrador conta a história em primeira pessoa","Sete personagens contam histórias durante a noite em uma taverna","Uma carta trocada entre dois amantes","Cartas de um soldado para sua família"], ans: 1, exp: "A obra usa a narrativa moldura: sete jovens boêmios reunidos em uma taverna narram suas histórias pesadas de libertinagem, morte e horror." },
+      { q: "Qual corrente literária 'Noite na Taverna' representa?", opts: ["Arcadismo","Realismo","Ultra-Romantismo","Pré-Modernismo"], ans: 2, exp: "A obra é o exemplo máximo do Ultra-Romantismo brasileiro, com temas sombrios, pessimismo exacerbado e influência do byronismo inglês." },
+      { q: "O que é o 'byronismo' presente na obra de Álvares de Azevedo?", opts: ["Uma técnica de versificação com rimas alternadas","A postura do herói fatalista, entediado, rebelde e melancólico influenciado por Byron","Um movimento artístico inspirado na Revolução Francesa","O uso de metáforas religiosas na poesia"], ans: 1, exp: "O byronismo refere-se à influência do poeta inglês Lord Byron: personagens rebeldes, entediados com a vida, fatalistas e que buscam prazer extremo diante da morte inevitável." },
+      { q: "Qual tema controverso é abordado na história 'Bertram' em 'Noite na Taverna'?", opts: ["Homossexualidade","Escravidão","Necrofilia","Parricídio"], ans: 2, exp: "Na história de Bertram, o personagem se relaciona com quem acredita ser uma mulher viva, descobrindo que se trata de um cadáver — um dos episódios mais chocantes do Romantismo brasileiro." },
+      { q: "Em que contexto foi publicada 'Noite na Taverna'?", opts: ["Durante a vida do autor, quando tinha 20 anos","Postumamente, após a morte do autor aos 20 anos","Décadas após sua morte, no Modernismo","No período colonial, censurada pela Igreja"], ans: 1, exp: "Álvares de Azevedo morreu prematuramente em 1852 com apenas 20 anos. Sua obra, incluindo 'Noite na Taverna', foi publicada postumamente em 1855." }
+    ]
+  },
+  {
+    id: 4,
+    title: "O Demônio Familiar",
+    author: "José de Alencar",
+    year: "1857",
+    coverUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Jose_de_Alencar.jpg/220px-Jose_de_Alencar.jpg",
+    coverColor: "#0a1a0a",
+    emoji: "🎭",
+    summary: "Peça teatral em que o 'demônio' do título é Pedro, um escravo doméstico manipulador que interfere nas relações amorosas de seus senhores. Alencar usa a comédia para criticar a escravidão e suas distorções morais na sociedade brasileira.",
+    yearNote: "Estreou em 1857 no Teatro Ginásio, Rio de Janeiro",
+    cubes: [
+      { icon: "🎭", label: "Gênero", back: "Comédia dramática em quatro atos. Influência do realismo europeu de Dumas Filho." },
+      { icon: "⛓️", label: "Crítica", back: "Crítica sutil à escravidão: Pedro demonstra como a instituição perverte o caráter." },
+      { icon: "😈", label: "Pedro", back: "Escravo protagonista que manipula todos. Ao final, pede para ser vendido — libertação impossível." },
+      { icon: "💑", label: "Amor", back: "Intriga amorosa entre Eduardo, Carlotinha e outros. Pedro atrapalha os relacionamentos." },
+      { icon: "🏆", label: "Importância", back: "Considerada a melhor peça do teatro realista brasileiro do século XIX." }
+    ],
+    quiz: [
+      { q: "Quem é o 'demônio familiar' do título da peça de José de Alencar?", opts: ["Um espírito maligno que assombra a casa","Pedro, um escravo que interfere nos relacionamentos","O pai autoritário da família","Um padre corrupto"], ans: 1, exp: "Pedro é o escravo doméstico que, com suas intrigas e mentiras, se transforma no 'demônio' da família, perturbando todos os relacionamentos amorosos da casa." },
+      { q: "Qual é a crítica social central em 'O Demônio Familiar'?", opts: ["A corrupção do clero católico","A escravidão e como ela perverte moralmente tanto escravizados quanto senhores","O imperialismo europeu no Brasil","A desigualdade entre homens e mulheres"], ans: 1, exp: "Alencar mostra como a escravidão deforma o caráter de todos: Pedro age de forma manipuladora como estratégia de sobrevivência, enquanto os senhores têm sua moral comprometida." },
+      { q: "A que gênero literário pertence 'O Demônio Familiar'?", opts: ["Romance histórico","Poesia épica","Peça teatral (comédia dramática)","Conto regionalista"], ans: 2, exp: "É uma comédia dramática em quatro atos, influenciada pelo realismo teatral europeu, especialmente pela obra de Alexandre Dumas Filho." },
+      { q: "Qual é o desfecho de Pedro ao final de 'O Demônio Familiar'?", opts: ["Ganha a liberdade e parte para o Sul","Pede para ser vendido, revelando a impossibilidade de libertação plena","É executado pelo crime de traição","Torna-se um homem livre e rico"], ans: 1, exp: "No final, Pedro pede para ser vendido a outro senhor, o que Alencar usa para mostrar a ironia trágica da escravidão: mesmo quando poderia ser libertado, o sistema o mantém preso." },
+      { q: "José de Alencar é também conhecido por qual outra obra fundamental da literatura brasileira?", opts: ["Dom Casmurro","O Guarani","Memórias Póstumas de Brás Cubas","A Moreninha"], ans: 1, exp: "'O Guarani' (1857) é a obra-prima de Alencar no Romantismo indianista, que narra a história do índio Peri e sua devoção à jovem Ceci, tornando-se símbolo da identidade nacional." }
+    ]
+  },
+  {
+    id: 5,
+    title: "O Drible",
+    author: "Sérgio Rodrigues",
+    year: "2013",
+    coverUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Football_iu_1996.jpg/220px-Football_iu_1996.jpg",
+    coverColor: "#001a0a",
+    emoji: "⚽",
+    summary: "Romance contemporâneo que usa o futebol como metáfora para discutir identidade brasileira, masculinidade, memória e pai. Joca, um cronista esportivo, investiga o grande drible do jogador Sebastião Trovoada, seu pai ausente, reconstruindo uma história cheia de mitos e silêncios.",
+    yearNote: "Publicado em 2013, vencedor do Prêmio São Paulo de Literatura",
+    cubes: [
+      { icon: "⚽", label: "Metáfora", back: "O futebol como espelho da identidade brasileira e da relação pai-filho." },
+      { icon: "🔍", label: "Narrativa", back: "Narrativa de investigação: Joca busca reconstruir o mito do pai desaparecido." },
+      { icon: "🇧🇷", label: "Brasil", back: "Reflexão sobre o que significa ser brasileiro através da cultura do futebol." },
+      { icon: "👨‍👦", label: "Tema", back: "Paternidade ausente, memória, mito e construção identitária masculina." },
+      { icon: "🏆", label: "Prêmio", back: "Venceu o Prêmio São Paulo de Literatura 2014 na categoria melhor romance." }
+    ],
+    quiz: [
+      { q: "Qual é o nome do pai de Joca e por que ele é lembrado em 'O Drible'?", opts: ["Manuel dos Santos, o Garrincha","Sebastião Trovoada, pelo seu lendário drible","Pelé, pelo gol mais bonito do mundo","Zico, pela dança com a bola"], ans: 1, exp: "Sebastião Trovoada é o pai de Joca, um jogador de futebol semi-lendário cujo drible mágico é o centro da investigação narrativa do romance." },
+      { q: "Qual é a profissão do protagonista Joca em 'O Drible'?", opts: ["Jogador de futebol profissional","Cronista esportivo e jornalista","Técnico de futebol","Árbitro aposentado"], ans: 1, exp: "Joca é cronista esportivo, o que justifica sua investigação jornalística sobre o passado de seu pai e o famoso drible que gerou tanto mito quanto silêncio." },
+      { q: "Além do futebol, qual outro tema central é explorado em 'O Drible'?", opts: ["A corrupção política no Brasil","A relação com o pai ausente e a construção da memória","A ditadura militar brasileira","A imigração nordestina para São Paulo"], ans: 1, exp: "A relação pai-filho ausente é o coração emocional do romance, com Joca tentando reconstruir quem foi seu pai a partir de fragmentos de memória, testemunhos e mitos." },
+      { q: "O futebol em 'O Drible' funciona principalmente como:", opts: ["Relato histórico documental do futebol brasileiro","Metáfora para a identidade nacional e as relações humanas","Crítica à corrupção da FIFA","Autobiografia do autor Sérgio Rodrigues"], ans: 1, exp: "O futebol é usado por Sérgio Rodrigues como lente para explorar questões de identidade brasileira, masculinidade, mito e as relações afetivas entre pais e filhos." },
+      { q: "'O Drible' de Sérgio Rodrigues pertence a qual geração da literatura brasileira?", opts: ["Modernismo de 1922","Geração de 45","Literatura contemporânea (século XXI)","Pré-Modernismo"], ans: 2, exp: "Publicado em 2013, 'O Drible' é parte da literatura brasileira contemporânea, caracterizada pela reflexão sobre identidade nacional, memória e questões sociais através de narrativas urbanas." }
+    ]
+  },
+  {
+    id: 6,
+    title: "O Quinze",
+    author: "Rachel de Queiroz",
+    year: "1930",
+    coverUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Rachel_de_Queiroz_1964.jpg/220px-Rachel_de_Queiroz_1964.jpg",
+    coverColor: "#1a1000",
+    emoji: "🌵",
+    summary: "Romance publicado quando a autora tinha apenas 20 anos, narra a grande seca de 1915 no Ceará. Acompanha Conceição, uma mulher moderna e independente, e Vicente, fazendeiro, enquanto retadores como Chico Bento fogem para o Sul. Marco do Regionalismo nordestino e do Modernismo brasileiro.",
+    yearNote: "Publicado em 1930 — Rachel de Queiroz tinha apenas 20 anos",
+    cubes: [
+      { icon: "🌵", label: "Seca", back: "A seca de 1915 no Ceará como catástrofe humana e social. Retirantes na estrada." },
+      { icon: "👩", label: "Conceição", back: "Protagonista feminina modernista: intelectual, independente, questiona o casamento." },
+      { icon: "📅", label: "Precocidade", back: "Rachel escreveu o romance com 20 anos. É considerado um marco do Regionalismo." },
+      { icon: "🇧🇷", label: "Modernismo", back: "Segunda fase do Modernismo brasileiro: foco no social, no regional e no nordestino." },
+      { icon: "🏆", label: "Legado", back: "Rachel de Queiroz foi a primeira mulher eleita para a Academia Brasileira de Letras." }
+    ],
+    quiz: [
+      { q: "Qual catástrofe climática é retratada em 'O Quinze' de Rachel de Queiroz?", opts: ["A enchente do Rio de 1967","A grande seca de 1915 no Ceará","A seca de 1877 no sertão nordestino","A estiagem de 1930 em Pernambuco"], ans: 1, exp: "O título 'O Quinze' refere-se a 1915, ano da grande seca que assolou o Ceará, provocando o êxodo de milhares de retirantes nordestinos." },
+      { q: "Qual é a importância da personagem Conceição em 'O Quinze'?", opts: ["É a típica heroína romântica que espera por amor","É uma mulher moderna, intelectual e independente que questiona os papéis femininos","É uma retirante analfabeta que foge da seca","É a mãe tradicional símbolo da resistência nordestina"], ans: 1, exp: "Conceição é uma das primeiras protagonistas feministas da ficção brasileira: professora, leitora, que recusa casar por convenção social e questiona seu papel na sociedade." },
+      { q: "Com quantos anos Rachel de Queiroz publicou 'O Quinze'?", opts: ["16 anos","20 anos","25 anos","30 anos"], ans: 1, exp: "Rachel de Queiroz publicou seu romance de estreia em 1930, quando tinha apenas 20 anos, tornando-se um fenômeno literário e um dos pilares do Regionalismo nordestino." },
+      { q: "'O Quinze' pertence a qual fase do Modernismo brasileiro?", opts: ["Primeira fase — Semana de Arte Moderna","Segunda fase — Regionalismo e prosa social","Terceira fase — Geração de 45","Pré-Modernismo"], ans: 1, exp: "O romance faz parte da Segunda fase do Modernismo (anos 30), marcada pelo Regionalismo e pela prosa social de denúncia, ao lado de obras de Graciliano Ramos e Jorge Amado." },
+      { q: "Rachel de Queiroz foi a primeira mulher a conquistar qual honraria?", opts: ["Prêmio Nobel de Literatura","Ser eleita para a Academia Brasileira de Letras","Ganhar o Prêmio Camões","Publicar na Revista Modernista"], ans: 1, exp: "Em 1977, Rachel de Queiroz tornou-se a primeira mulher eleita para a Academia Brasileira de Letras, quebrando uma barreira histórica que existia desde 1897." }
+    ]
+  },
+  {
+    id: 7,
+    title: "O Sol na Cabeça",
+    author: "Geovani Martins",
+    year: "2018",
+    coverUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Ipanema_beach.jpg/220px-Ipanema_beach.jpg",
+    coverColor: "#001a1a",
+    emoji: "🌊",
+    summary: "Coletânea de contos que retrata a periferia carioca com olhar íntimo e poético. Geovani Martins narra jovens das favelas do Rio de Janeiro que transitam entre o asfalto e o morro, enfrentando violência policial, vulnerabilidade social, drogas e o sonho de uma vida diferente.",
+    yearNote: "Publicado em 2018 pela Companhia das Letras — fenômeno editorial",
+    cubes: [
+      { icon: "🌊", label: "Rio", back: "Favelas e praias do Rio de Janeiro. A fronteira entre dois mundos em conflito." },
+      { icon: "👦", label: "Jovens", back: "Protagonistas jovens e periféricos que navegam entre violência e sonhos." },
+      { icon: "✍️", label: "Estilo", back: "Linguagem oral e periférica. Narrador de dentro da comunidade, sem condescendência." },
+      { icon: "⚠️", label: "Temas", back: "Violência policial, racismo, vulnerabilidade social, drogas e solidariedade." },
+      { icon: "🌍", label: "Sucesso", back: "Traduzido para mais de 20 países. Geovani vinha de família humilde do Rio." }
+    ],
+    quiz: [
+      { q: "Qual é o cenário principal dos contos de 'O Sol na Cabeça' de Geovani Martins?", opts: ["O sertão nordestino","As favelas e periferias do Rio de Janeiro","O centro empresarial de São Paulo","O interior de Minas Gerais"], ans: 1, exp: "Os contos se passam nas favelas e periferias cariocas, explorando a fronteira entre o morro e o asfalto, entre o mundo dos pobres e o dos ricos no Rio de Janeiro." },
+      { q: "Qual aspecto do estilo de Geovani Martins é mais marcante em 'O Sol na Cabeça'?", opts: ["Linguagem erudita e hermética do Parnasianismo","Uso de linguagem oral e periférica, como voz de dentro da comunidade","Narração impessoal e científica do Naturalismo","Prosa poética influenciada pelo Simbolismo"], ans: 1, exp: "Geovani Martins narra de dentro da periferia, com linguagem coloquial e autêntica, sem o olhar externo ou condescendente comum na literatura sobre favelas." },
+      { q: "Qual tema de violência é recorrente nos contos de 'O Sol na Cabeça'?", opts: ["Violência doméstica entre casais","Violência policial contra jovens negros periféricos","Conflitos entre gangues rurais","Violência de torcidas organizadas"], ans: 1, exp: "A violência policial e o racismo estrutural são temas centrais, com personagens jovens e negros constantemente sujeitos à arbitrariedade do Estado nas favelas cariocas." },
+      { q: "O conto que dá título ao livro, 'O Sol na Cabeça', aborda principalmente:", opts: ["Uma partida de futebol na favela","Um jovem da periferia em um ônibus que percebe os olhares de desconfiança da classe média","Uma viagem de pescadores pelo litoral","A história de um músico de funk"], ans: 1, exp: "O conto narra a experiência de um jovem negro da periferia em um ônibus lotado, onde percebe ser observado com suspeita — uma metáfora do racismo cotidiano no Brasil." },
+      { q: "O livro 'O Sol na Cabeça' foi traduzido para quantos países aproximadamente?", opts: ["5 países","10 países","Mais de 20 países","Apenas países lusófonos"], ans: 2, exp: "O livro de estreia de Geovani Martins tornou-se um fenômeno editorial, sendo traduzido para mais de 20 línguas, revelando o interesse global pela literatura periférica brasileira." }
+    ]
+  },
+  {
+    id: 8,
+    title: "Poema Sujo",
+    author: "Ferreira Gullar",
+    year: "1976",
+    coverUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ferreira_Gullar.jpg/220px-Ferreira_Gullar.jpg",
+    coverColor: "#1a0a1a",
+    emoji: "✍️",
+    summary: "Escrito no exílio em Buenos Aires, durante a ditadura militar brasileira, é considerado um dos maiores poemas da língua portuguesa. Em um longo e torrencial fluxo de consciência, Gullar evoca sua infância em São Luís do Maranhão, o Brasil, a vida, a morte e a resistência.",
+    yearNote: "Escrito em 1975, publicado em 1976, durante o exílio do autor na Argentina",
+    cubes: [
+      { icon: "✈️", label: "Exílio", back: "Escrito em Buenos Aires durante o exílio político. A ditadura militar como pano de fundo." },
+      { icon: "📜", label: "Forma", back: "Longo poema em fluxo de consciência. Sem divisão estrófica convencional. Torrencial." },
+      { icon: "🏙️", label: "Origem", back: "Evocação lírica de São Luís do Maranhão. A memória da infância como resistência." },
+      { icon: "💪", label: "Resistência", back: "Arte como forma de resistir à ditadura. A vida como reafirmação diante do medo." },
+      { icon: "🏆", label: "Prêmio", back: "Ferreira Gullar recebeu o Prêmio Camões em 2010, o maior da língua portuguesa." }
+    ],
+    quiz: [
+      { q: "Em qual cidade e contexto político Ferreira Gullar escreveu 'Poema Sujo'?", opts: ["Em Paris, durante a Segunda Guerra Mundial","Em Buenos Aires, durante o exílio da ditadura militar brasileira","Em São Paulo, durante a Semana de Arte Moderna","No Recife, durante a revolta da Praieira"], ans: 1, exp: "Gullar escreveu o poema em 1975 em Buenos Aires, onde estava exilado pela ditadura militar brasileira (1964-1985), sob o risco de ser extraditado e preso." },
+      { q: "Qual cidade da infância de Gullar é evocada com lirismo em 'Poema Sujo'?", opts: ["Rio de Janeiro","Belém do Pará","São Luís do Maranhão","Fortaleza"], ans: 2, exp: "São Luís do Maranhão é a cidade natal de Ferreira Gullar e o centro emocional do poema, onde as memórias da infância funcionam como âncora de identidade e resistência." },
+      { q: "Qual é a principal característica formal de 'Poema Sujo'?", opts: ["Sonetos rigorosos com rima ABBA","Haicais com três versos","Longo fluxo de consciência torrencial, sem divisão estrófica convencional","Décimas espinelas da tradição popular"], ans: 2, exp: "'Poema Sujo' se caracteriza por seu longo fluxo lírico ininterrupto, misturando memória, sensações físicas, política e filosofia em uma forma que rompe com a métrica tradicional." },
+      { q: "O título 'Poema Sujo' sugere principalmente:", opts: ["Um poema com linguagem obscena e imoral","A sujeira das ruas de São Luís","A vida crua, corporal e política, oposta à arte 'pura' e asséptica","Uma crítica ao saneamento básico do Brasil"], ans: 2, exp: "O 'sujo' do título evoca a materialidade da vida, o corpo, a política, a memória misturada — em oposição a uma arte 'limpa' e alienada da realidade social e histórica." },
+      { q: "Qual importante prêmio da língua portuguesa Ferreira Gullar recebeu em 2010?", opts: ["Prêmio Nobel de Literatura","Prêmio Camões","Prêmio Jabuti Especial","Prêmio São Paulo de Literatura"], ans: 1, exp: "Ferreira Gullar recebeu o Prêmio Camões em 2010, o mais importante galardão da literatura em língua portuguesa, reconhecendo sua trajetória como um dos maiores poetas brasileiros." }
+    ]
+  }
+];
+
+const coverImages = {
+  1: "https://covers.openlibrary.org/b/isbn/9786558700531-L.jpg",
+  2: "https://covers.openlibrary.org/b/isbn/9788571640115-L.jpg",
+  3: "https://covers.openlibrary.org/b/isbn/9788525413291-L.jpg",
+  4: "https://covers.openlibrary.org/b/isbn/9788583860006-L.jpg",
+  5: "https://covers.openlibrary.org/b/isbn/9788543106328-L.jpg",
+  6: "https://covers.openlibrary.org/b/isbn/9788520916802-L.jpg",
+  7: "https://covers.openlibrary.org/b/isbn/9788535930948-L.jpg",
+  8: "https://covers.openlibrary.org/b/isbn/9788520936697-L.jpg"
+};
+
+let currentBook = null;
+let currentQ = 0;
+let score = 0;
+let answered = false;
+
+function renderBooks() {
+  const grid = document.getElementById('booksGrid');
+  books.forEach((book, idx) => {
+    const card = document.createElement('div');
+    card.className = 'book-card';
+    card.style.animationDelay = `${idx * 0.1}s`;
+
+    const cubesHTML = book.cubes.map(c => `
+      <div class="cube-wrapper" title="${c.label}">
+        <div class="cube">
+          <div class="cube-face face-front">
+            <span class="face-front-icon">${c.icon}</span>
+            <span>${c.label}</span>
+          </div>
+          <div class="cube-face face-back">${c.back}</div>
+        </div>
+      </div>
+    `).join('');
+
+    card.innerHTML = `
+      <div class="card-header">
+        <img src="${coverImages[book.id]}" alt="Capa: ${book.title}"
+          onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,${book.coverColor},#0a0502)'; this.parentElement.innerHTML+='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem;\\'>${book.emoji}</div>'">
+        <div class="card-header-overlay"></div>
+        <div class="card-num">0${book.id < 10 ? '0'+book.id : book.id} / 08</div>
+      </div>
+      <div class="card-body">
+        <div class="book-title">${book.title}</div>
+        <div class="book-author">${book.author}</div>
+        <div class="book-year">◈ ${book.year}</div>
+        <div class="book-summary">${book.summary}</div>
+        <div class="cubes-title">[ Passe o mouse nos cubos para detalhes ]</div>
+        <div class="cubes-row">${cubesHTML}</div>
+        <button class="quiz-btn" onclick="openQuiz(${book.id})">
+          <span>⚡ Iniciar Quiz da Obra</span>
+        </button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function openQuiz(bookId) {
+  currentBook = books.find(b => b.id === bookId);
+  currentQ = 0;
+  score = 0;
+  answered = false;
+
+  document.getElementById('modalTitle').textContent = currentBook.title;
+  document.getElementById('modalAuthor').textContent = currentBook.author + ' · ' + currentBook.year;
+
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.add('active');
+  renderQuestion();
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+function renderQuestion() {
+  const container = document.getElementById('quizContainer');
+  const q = currentBook.quiz[currentQ];
+  const total = currentBook.quiz.length;
+  const pct = (currentQ / total) * 100;
+
+  answered = false;
+
+  container.innerHTML = `
+    <div class="quiz-counter">
+      <span>Q${currentQ+1}/${total}</span>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <span>PONTOS: ${score}</span>
+    </div>
+    <div class="quiz-question">${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((opt, i) => `
+        <button class="quiz-option" onclick="selectAnswer(${i})">${String.fromCharCode(65+i)}) ${opt}</button>
+      `).join('')}
+    </div>
+    <div class="feedback-msg" id="feedbackMsg"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">
+      ${currentQ < total-1 ? 'Próxima →' : 'Ver Resultado ✓'}
+    </button>
+  `;
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+
+  const q = currentBook.quiz[currentQ];
+  const opts = document.querySelectorAll('.quiz-option');
+  const fb = document.getElementById('feedbackMsg');
+  const nb = document.getElementById('nextBtn');
+
+  opts.forEach(o => o.disabled = true);
+
+  if (idx === q.ans) {
+    score++;
+    opts[idx].classList.add('correct');
+    fb.className = 'feedback-msg show ok';
+    fb.innerHTML = `✔ Correto! ${q.exp}`;
+  } else {
+    opts[idx].classList.add('wrong');
+    opts[q.ans].classList.add('correct');
+    fb.className = 'feedback-msg show err';
+    fb.innerHTML = `✘ Incorreto. A resposta certa é <strong>${String.fromCharCode(65+q.ans)}</strong>. ${q.exp}`;
+  }
+
+  nb.classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= currentBook.quiz.length) {
+    showResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResult() {
+  const total = currentBook.quiz.length;
+  const pct = Math.round((score / total) * 100);
+
+  let msg, emoji;
+  if (pct === 100) {
+    msg = "🏆 Perfeito! Você domina completamente esta obra. Está pronto(a) para o vestibular da UFPR!";
+    emoji = "🥇";
+  } else if (pct >= 80) {
+    msg = "⭐ Excelente! Você tem um ótimo domínio da obra. Revise os pontos que errou e estará pronto(a)!";
+    emoji = "🥈";
+  } else if (pct >= 60) {
+    msg = "📚 Bom desempenho! Você conhece a obra, mas ainda há pontos a aprofundar. Continue estudando!";
+    emoji = "📖";
+  } else if (pct >= 40) {
+    msg = "💪 Você está no caminho. Releia o resumo da obra e tente novamente — você consegue melhorar!";
+    emoji = "🎯";
+  } else {
+    msg = "🔥 Não desanime! O vestibular é uma jornada. Dedique mais tempo a esta obra e refaça o quiz!";
+    emoji = "💡";
+  }
+
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = `
+    <div class="quiz-result show">
+      <div style="font-size:3rem;margin-bottom:10px;">${emoji}</div>
+      <div class="result-label">Resultado Final</div>
+      <div class="result-score">${score}/${total}</div>
+      <div class="result-label" style="margin-top:8px;">${pct}% de acerto</div>
+      <div class="result-msg">${msg}</div>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <button class="restart-btn" onclick="openQuiz(${currentBook.id})">↺ Refazer Quiz</button>
+        <button class="restart-btn" style="border-color:var(--gold);color:var(--gold-bright);" onclick="closeModal()">✕ Fechar</button>
+      </div>
+    </div>
+  `;
+}
+
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+function createParticles() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `
+      left:${Math.random()*100}vw;
+      animation-duration:${8+Math.random()*12}s;
+      animation-delay:${Math.random()*10}s;
+      width:${1+Math.random()*2}px;
+      height:${1+Math.random()*2}px;
+      background:${Math.random() > 0.5 ? 'var(--gold)' : 'var(--neon-cyan)'};
+      opacity:${0.1+Math.random()*0.4};
+    `;
+    container.appendChild(p);
+  }
+}
+
+renderBooks();
+createParticles();
+</script>
+</body>
+</html>
