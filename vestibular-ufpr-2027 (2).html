@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obras Literárias – Vestibular UFPR 2027 | Prof. Marco Dias</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, collection, getDocs, query, orderBy, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ══════════════════════════════════════════════════════════════════
+//  CONFIGURAÇÃO FIREBASE — substitua pelos seus dados do Console
+//  https://console.firebase.google.com → Seu Projeto → Configurações
+// ══════════════════════════════════════════════════════════════════
+const firebaseConfig = {
+  apiKey:            "SUA_API_KEY",
+  authDomain:        "SEU_PROJETO.firebaseapp.com",
+  projectId:         "SEU_PROJETO",
+  storageBucket:     "SEU_PROJETO.appspot.com",
+  messagingSenderId: "SEU_SENDER_ID",
+  appId:             "SEU_APP_ID"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+const provider = new GoogleAuthProvider();
+provider.addScope('email');
+provider.addScope('profile');
+
+// ── Expõe funções para o código global ──
+window._fb = { auth, db, provider, signInWithPopup, signOut, onAuthStateChanged,
+               doc, setDoc, collection, getDocs, query, orderBy, serverTimestamp,
+               GoogleAuthProvider };
+
+window.dispatchEvent(new Event('firebaseReady'));
+</script>
+
+<style>
+:root {
+  --papiro:#2a1a0a; --papiro-mid:#3d2510; --papiro-light:#5c3a1e;
+  --gold:#d4a017; --gold-bright:#f0c040; --gold-dim:#8a6510;
+  --neon-cyan:#00ffe0; --neon-orange:#ff6b1a; --neon-blue:#1af0ff;
+  --text-parchment:#e8d5a3; --text-dim:#a08060;
+  --accent-red:#c0392b;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  background:var(--papiro);
+  background-image:
+    radial-gradient(ellipse at 20% 50%,rgba(90,50,10,.3) 0%,transparent 60%),
+    radial-gradient(ellipse at 80% 20%,rgba(60,30,5,.4) 0%,transparent 55%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  color:var(--text-parchment);
+  font-family:'Rajdhani',sans-serif;
+  min-height:100vh; overflow-x:hidden;
+  *{-webkit-user-select:none!important;user-select:none!important;}
+}
+body::before{content:'';position:fixed;inset:0;z-index:1000;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);}
+
+/* ── Sidebar ── */
+#sidebar{position:fixed;left:0;top:0;bottom:0;width:56px;
+  background:linear-gradient(180deg,rgba(20,10,2,.98),rgba(35,18,5,.98));
+  border-right:1px solid rgba(212,160,23,.25);z-index:500;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;}
+#sidebar-text{writing-mode:vertical-rl;transform:rotate(180deg);
+  font-family:'Cinzel',serif;font-size:.7rem;font-weight:600;color:var(--gold);
+  letter-spacing:.18em;text-transform:uppercase;padding:0 8px;
+  border-left:2px solid var(--gold-dim);text-shadow:0 0 12px rgba(212,160,23,.6);}
+.sb-line{width:1px;height:60px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);
+  margin:12px 0;animation:pulse-line 2s ease-in-out infinite;}
+@keyframes pulse-line{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ── Header ── */
+header{margin-left:56px;padding:32px 60px 24px;text-align:center;position:relative;
+  border-bottom:1px solid rgba(212,160,23,.2);
+  background:linear-gradient(180deg,rgba(10,5,0,.6) 0%,transparent 100%);}
+header::after{content:'';position:absolute;bottom:-1px;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),var(--neon-cyan),var(--gold),transparent);
+  animation:glow-line 3s ease-in-out infinite;}
+@keyframes glow-line{0%,100%{opacity:.5}50%{opacity:1;filter:blur(1px)}}
+
+.header-badge{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:.65rem;
+  color:var(--neon-cyan);letter-spacing:.3em;text-transform:uppercase;
+  border:1px solid rgba(0,255,224,.3);padding:4px 16px;margin-bottom:16px;
+  background:rgba(0,255,224,.05);animation:flicker 4s infinite;}
+@keyframes flicker{0%,95%,100%{opacity:1}96%{opacity:.3}97%{opacity:1}98%{opacity:.5}99%{opacity:1}}
+
+h1.site-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.3rem,3vw,2.4rem);
+  font-weight:900;color:var(--gold-bright);
+  text-shadow:0 0 30px rgba(240,192,64,.8),0 0 60px rgba(240,192,64,.3),2px 2px 0 rgba(0,0,0,.8);
+  letter-spacing:.05em;line-height:1.2;margin-bottom:8px;}
+.subtitle{font-family:'Cinzel',serif;font-size:.9rem;color:var(--text-dim);letter-spacing:.2em;text-transform:uppercase;}
+
+/* ── Auth Bar ── */
+#authBar{display:flex;align-items:center;justify-content:center;gap:16px;
+  margin-top:18px;flex-wrap:wrap;}
+#loginBtn,#logoutBtn,#dashBtn{
+  padding:8px 22px;font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .3s;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));}
+#loginBtn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.2);color:#fff;}
+#loginBtn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.5);}
+#logoutBtn{background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.4);color:#ff8866;display:none;}
+#logoutBtn:hover{background:rgba(192,57,43,.2);}
+#dashBtn{background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.4);color:var(--gold-bright);display:none;}
+#dashBtn:hover{background:rgba(212,160,23,.2);box-shadow:0 0 20px rgba(212,160,23,.3);}
+#userInfo{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--neon-cyan);
+  display:none;align-items:center;gap:10px;}
+#userAvatar{width:28px;height:28px;border-radius:50%;border:1px solid var(--neon-cyan);object-fit:cover;}
+
+.deco-diamond{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);box-shadow:0 0 12px var(--gold);}
+.deco-line{flex:1;max-width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim));}
+.deco-line.r{background:linear-gradient(90deg,var(--gold-dim),transparent);}
+.header-deco{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px;}
+
+/* ── Main ── */
+main{margin-left:56px;padding:46px 40px;max-width:1400px;}
+.section-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--neon-orange);
+  letter-spacing:.4em;text-transform:uppercase;margin-bottom:38px;text-align:center;
+  display:flex;align-items:center;justify-content:center;gap:20px;}
+.section-label::before,.section-label::after{content:'';flex:1;max-width:300px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--neon-orange));}
+.section-label::after{background:linear-gradient(90deg,var(--neon-orange),transparent);}
+
+/* ── Books Grid ── */
+.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:30px;}
+
+.book-card{position:relative;
+  background:linear-gradient(145deg,rgba(50,28,8,.9) 0%,rgba(30,15,4,.95) 100%);
+  border:1px solid rgba(212,160,23,.2);border-radius:2px;overflow:visible;cursor:pointer;
+  transition:all .4s cubic-bezier(.23,1,.32,1);}
+.book-card::before{content:'';position:absolute;inset:-1px;border-radius:2px;
+  background:linear-gradient(135deg,var(--gold),transparent 40%,transparent 60%,var(--neon-cyan));
+  opacity:0;transition:opacity .4s;z-index:-1;}
+.book-card:hover::before{opacity:.5;}
+.book-card:hover{transform:translateY(-8px);
+  box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 30px rgba(212,160,23,.15);
+  border-color:rgba(212,160,23,.5);}
+
+.card-header{position:relative;height:210px;overflow:hidden;background:#1a0d03;}
+.card-header img{width:100%;height:100%;object-fit:cover;object-position:top;
+  filter:sepia(20%) brightness(.85) contrast(1.1);transition:all .5s ease;}
+.book-card:hover .card-header img{filter:sepia(0%) brightness(1) contrast(1.1);transform:scale(1.05);}
+.card-header-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(30,15,4,.98) 100%);}
+.card-num{position:absolute;top:10px;right:10px;font-family:'Share Tech Mono',monospace;font-size:.62rem;
+  color:var(--neon-cyan);background:rgba(0,0,0,.7);border:1px solid rgba(0,255,224,.3);padding:2px 8px;letter-spacing:.2em;}
+
+.card-body{padding:18px 20px;}
+.book-title{font-family:'Cinzel',serif;font-size:1.05rem;font-weight:700;color:var(--gold-bright);
+  line-height:1.3;text-shadow:0 0 20px rgba(240,192,64,.4);margin-bottom:3px;}
+.book-author{font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:500;color:var(--neon-cyan);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.book-author::before{content:'';display:inline-block;width:14px;height:1px;
+  background:var(--neon-cyan);box-shadow:0 0 6px var(--neon-cyan);}
+.book-year{font-family:'Share Tech Mono',monospace;font-size:.67rem;color:var(--neon-orange);letter-spacing:.15em;margin-bottom:10px;}
+.book-summary{font-size:.86rem;color:var(--text-parchment);line-height:1.6;opacity:.85;margin-bottom:18px;}
+
+/* ── Cubes ── */
+.cubes-title{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--gold-dim);
+  letter-spacing:.3em;text-transform:uppercase;margin-bottom:12px;}
+.cubes-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;}
+.cube-wrapper{perspective:600px;width:70px;height:70px;flex-shrink:0;}
+.cube{width:100%;height:100%;position:relative;transform-style:preserve-3d;
+  transition:transform .7s cubic-bezier(.23,1,.32,1);}
+.cube-wrapper:hover .cube{transform:rotateY(180deg) rotateX(10deg);}
+.cube-face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  border:1px solid;font-family:'Rajdhani',sans-serif;font-size:.6rem;font-weight:600;
+  text-align:center;padding:6px;line-height:1.3;backface-visibility:hidden;}
+.face-front{background:linear-gradient(135deg,rgba(212,160,23,.15),rgba(212,160,23,.05));
+  border-color:rgba(212,160,23,.5);color:var(--gold-bright);
+  font-family:'Share Tech Mono',monospace;font-size:.53rem;flex-direction:column;gap:3px;}
+.face-front-icon{font-size:1.2rem;display:block;}
+.face-back{background:linear-gradient(135deg,rgba(0,255,224,.1),rgba(0,255,224,.03));
+  border-color:rgba(0,255,224,.4);color:var(--text-parchment);transform:rotateY(180deg);font-size:.52rem;line-height:1.4;}
+
+/* ── Quiz Button ── */
+.quiz-btn{width:100%;padding:12px 20px;
+  background:linear-gradient(135deg,rgba(212,160,23,.1),rgba(212,160,23,.05));
+  border:1px solid rgba(212,160,23,.4);color:var(--gold-bright);
+  font-family:'Rajdhani',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:all .3s;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));}
+.quiz-btn::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--gold),var(--neon-orange));opacity:0;transition:opacity .3s;}
+.quiz-btn:hover::before{opacity:.15;}
+.quiz-btn:hover{border-color:var(--gold);box-shadow:0 0 20px rgba(212,160,23,.3);color:#fff;}
+.quiz-btn span{position:relative;z-index:1;}
+
+/* ── Modal ── */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:2000;
+  background:rgba(5,2,0,.92);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.active{display:flex;}
+.modal{background:linear-gradient(145deg,#2a1505 0%,#1a0c03 100%);
+  border:1px solid rgba(212,160,23,.3);width:100%;max-width:680px;
+  max-height:90vh;overflow-y:auto;position:relative;
+  animation:modal-in .4s cubic-bezier(.23,1,.32,1);
+  scrollbar-width:thin;scrollbar-color:var(--gold-dim) transparent;}
+@keyframes modal-in{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),var(--neon-cyan),var(--gold),transparent);}
+.modal-header{padding:26px 30px 18px;border-bottom:1px solid rgba(212,160,23,.15);position:relative;}
+.modal-book-title{font-family:'Cinzel',serif;font-size:1.35rem;font-weight:700;
+  color:var(--gold-bright);text-shadow:0 0 20px rgba(240,192,64,.4);margin-bottom:4px;}
+.modal-author{font-family:'Rajdhani',sans-serif;font-size:.88rem;color:var(--neon-cyan);letter-spacing:.1em;text-transform:uppercase;}
+.modal-close{position:absolute;top:18px;right:18px;background:none;border:1px solid rgba(212,160,23,.3);
+  color:var(--gold);width:34px;height:34px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));}
+.modal-close:hover{background:rgba(212,160,23,.15);border-color:var(--gold);}
+.modal-body{padding:26px 30px;}
+
+/* ── Quiz ── */
+.quiz-login-gate{text-align:center;padding:30px 0;}
+.quiz-login-gate p{font-family:'Rajdhani',sans-serif;font-size:1rem;color:var(--text-parchment);margin-bottom:20px;line-height:1.6;}
+.btn-google-login{padding:12px 28px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.25);
+  color:#fff;font-family:'Rajdhani',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.15em;
+  cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:10px;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
+.btn-google-login:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.5);}
+.btn-google-login svg{flex-shrink:0;}
+
+.quiz-counter{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--neon-orange);
+  letter-spacing:.2em;margin-bottom:22px;display:flex;align-items:center;gap:12px;}
+.quiz-counter .progress-bar{flex:1;height:3px;background:rgba(255,255,255,.08);position:relative;overflow:hidden;}
+.quiz-counter .progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--neon-cyan));
+  transition:width .5s ease;box-shadow:0 0 8px var(--neon-cyan);}
+.quiz-question{font-family:'Rajdhani',sans-serif;font-size:1.03rem;font-weight:600;
+  color:var(--text-parchment);line-height:1.6;margin-bottom:22px;
+  padding-left:14px;border-left:2px solid var(--gold);}
+.quiz-options{display:flex;flex-direction:column;gap:9px;margin-bottom:24px;}
+.quiz-option{padding:13px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(212,160,23,.2);
+  color:var(--text-parchment);font-family:'Rajdhani',sans-serif;font-size:.9rem;font-weight:500;
+  text-align:left;cursor:pointer;transition:all .25s;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));}
+.quiz-option:hover:not(:disabled){background:rgba(212,160,23,.08);border-color:var(--gold);color:var(--gold-bright);transform:translateX(4px);}
+.quiz-option.correct{background:rgba(0,255,100,.1);border-color:#00ff64;color:#00ff64;}
+.quiz-option.wrong{background:rgba(255,60,60,.1);border-color:#ff3c3c;color:#ff3c3c;}
+.quiz-option:disabled{cursor:default;}
+.feedback-msg{padding:12px 16px;font-family:'Rajdhani',sans-serif;font-size:.86rem;font-weight:600;
+  margin-bottom:18px;display:none;letter-spacing:.05em;}
+.feedback-msg.show{display:block;}
+.feedback-msg.ok{background:rgba(0,255,100,.08);border:1px solid rgba(0,255,100,.3);color:#80ffb0;}
+.feedback-msg.err{background:rgba(255,60,60,.08);border:1px solid rgba(255,60,60,.3);color:#ff9090;}
+.next-btn{padding:11px 30px;
+  background:linear-gradient(135deg,rgba(212,160,23,.15),rgba(212,160,23,.05));
+  border:1px solid var(--gold);color:var(--gold-bright);
+  font-family:'Rajdhani',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;cursor:pointer;transition:all .3s;display:none;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
+.next-btn.show{display:inline-block;}
+.next-btn:hover{background:rgba(212,160,23,.2);box-shadow:0 0 20px rgba(212,160,23,.3);}
+
+/* ── Result ── */
+.quiz-result{text-align:center;padding:16px 0;display:none;}
+.quiz-result.show{display:block;}
+.result-score{font-family:'Cinzel Decorative',serif;font-size:3.2rem;font-weight:900;color:var(--gold-bright);
+  text-shadow:0 0 40px rgba(240,192,64,.8);line-height:1;margin:8px 0;}
+.result-label{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--neon-cyan);
+  letter-spacing:.3em;text-transform:uppercase;margin-bottom:18px;}
+.result-msg{font-family:'Rajdhani',sans-serif;font-size:1rem;line-height:1.6;margin-bottom:24px;
+  padding:14px;border:1px solid rgba(212,160,23,.2);background:rgba(212,160,23,.04);}
+.restart-btn{padding:11px 26px;background:none;border:1px solid var(--neon-cyan);color:var(--neon-cyan);
+  font-family:'Rajdhani',sans-serif;font-size:.86rem;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;cursor:pointer;transition:all .3s;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
+.restart-btn:hover{background:rgba(0,255,224,.1);box-shadow:0 0 20px rgba(0,255,224,.2);}
+.saving-note{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--gold-dim);
+  letter-spacing:.15em;margin-top:12px;display:none;}
+.saving-note.show{display:block;}
+
+/* ── Dashboard (Painel do Professor) ── */
+#dashOverlay{display:none;position:fixed;inset:0;z-index:3000;
+  background:rgba(0,0,0,.95);backdrop-filter:blur(12px);
+  overflow-y:auto;padding:30px 20px;}
+#dashOverlay.active{display:block;}
+.dash-inner{max-width:900px;margin:0 auto;}
+.dash-header{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:30px;padding-bottom:16px;border-bottom:1px solid rgba(212,160,23,.2);}
+.dash-title{font-family:'Cinzel Decorative',serif;font-size:1.5rem;color:var(--gold-bright);
+  text-shadow:0 0 20px rgba(240,192,64,.6);}
+.dash-close{background:none;border:1px solid rgba(212,160,23,.4);color:var(--gold);
+  padding:8px 20px;font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:700;
+  letter-spacing:.15em;cursor:pointer;transition:all .3s;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));}
+.dash-close:hover{background:rgba(212,160,23,.15);}
+
+.dash-filters{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;}
+.filter-btn{padding:7px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);
+  color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:.8rem;font-weight:600;
+  letter-spacing:.1em;cursor:pointer;transition:all .2s;
+  clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px));}
+.filter-btn.active{background:rgba(212,160,23,.15);border-color:rgba(212,160,23,.5);color:var(--gold-bright);}
+.filter-btn:hover{border-color:rgba(212,160,23,.3);color:var(--text-parchment);}
+
+.dash-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:28px;}
+.stat-box{background:rgba(255,255,255,.03);border:1px solid rgba(212,160,23,.18);padding:16px;text-align:center;}
+.stat-num{font-family:'Cinzel Decorative',serif;font-size:1.8rem;color:var(--gold-bright);line-height:1;}
+.stat-lbl{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--text-dim);
+  letter-spacing:.2em;text-transform:uppercase;margin-top:4px;}
+
+.dash-table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-family:'Rajdhani',sans-serif;}
+thead tr{border-bottom:1px solid rgba(212,160,23,.3);}
+th{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--neon-orange);
+  letter-spacing:.2em;text-transform:uppercase;padding:10px 14px;text-align:left;}
+td{padding:12px 14px;font-size:.88rem;color:var(--text-parchment);
+  border-bottom:1px solid rgba(255,255,255,.04);}
+tr:hover td{background:rgba(212,160,23,.04);}
+.score-pill{display:inline-block;padding:3px 10px;font-family:'Share Tech Mono',monospace;font-size:.7rem;
+  border-radius:1px;font-weight:700;}
+.score-a{background:rgba(0,255,100,.12);border:1px solid rgba(0,255,100,.3);color:#80ffb0;}
+.score-b{background:rgba(240,192,64,.12);border:1px solid rgba(240,192,64,.3);color:var(--gold-bright);}
+.score-c{background:rgba(255,107,26,.12);border:1px solid rgba(255,107,26,.3);color:#ffaa66;}
+.score-d{background:rgba(255,60,60,.12);border:1px solid rgba(255,60,60,.3);color:#ff9090;}
+
+.dash-empty{text-align:center;padding:50px;font-family:'Share Tech Mono',monospace;
+  font-size:.75rem;color:var(--text-dim);letter-spacing:.2em;}
+
+/* ── Footer ── */
+footer{margin-left:56px;padding:28px 60px;border-top:1px solid rgba(212,160,23,.15);
+  text-align:center;background:linear-gradient(0deg,rgba(10,5,0,.6),transparent);}
+.footer-text{font-family:'Cinzel',serif;font-size:.73rem;color:var(--text-dim);letter-spacing:.15em;line-height:2;}
+.footer-text strong{color:var(--gold-dim);}
+
+/* ── Particles ── */
+.particle{position:fixed;border-radius:50%;animation:float-up linear infinite;opacity:0;pointer-events:none;z-index:1;}
+@keyframes float-up{0%{transform:translateY(100vh) translateX(0);opacity:0}10%{opacity:.6}90%{opacity:.2}100%{transform:translateY(-100px) translateX(40px);opacity:0}}
+
+/* ── Security Alert ── */
+#secAlertOverlay{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.88);
+  backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;
+  padding:20px;animation:sa-fadein .25s ease;}
+@keyframes sa-fadein{from{opacity:0}to{opacity:1}}
+#secAlert{background:linear-gradient(160deg,#0d0500,#1a0a02 60%,#0a0300);
+  border:1px solid rgba(192,57,43,.7);width:100%;max-width:520px;position:relative;overflow:hidden;
+  animation:sa-slidein .35s cubic-bezier(.23,1,.32,1);
+  box-shadow:0 0 60px rgba(192,57,43,.3),0 0 120px rgba(192,57,43,.1),inset 0 0 40px rgba(0,0,0,.5);
+  padding:32px 30px 28px;text-align:center;}
+@keyframes sa-slidein{from{opacity:0;transform:scale(.85) translateY(-30px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.sa-top-bar{position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,#c0392b,#ff6b1a,#c0392b,transparent);
+  animation:sa-bar 2s ease-in-out infinite;}
+@keyframes sa-bar{0%,100%{opacity:.6}50%{opacity:1;filter:blur(1px)}}
+#secAlert::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,0,0,.02) 3px,rgba(255,0,0,.02) 6px);}
+.sa-icon{font-size:2.8rem;margin-bottom:10px;position:relative;z-index:1;animation:sa-shake .5s ease .3s;}
+@keyframes sa-shake{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-4deg)}80%{transform:rotate(4deg)}}
+.sa-title{font-family:'Cinzel Decorative',serif;font-size:1.25rem;font-weight:900;color:#ff4422;
+  text-shadow:0 0 20px rgba(255,68,34,.8);letter-spacing:.15em;margin-bottom:10px;position:relative;z-index:1;}
+.sa-subtitle{font-family:'Rajdhani',sans-serif;font-size:.92rem;font-weight:600;color:#e8d5a3;
+  line-height:1.6;margin-bottom:16px;position:relative;z-index:1;}
+.sa-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(192,57,43,.6),transparent);margin-bottom:16px;position:relative;z-index:1;}
+.sa-info-block{background:rgba(0,0,0,.4);border:1px solid rgba(192,57,43,.25);padding:14px 16px;
+  margin-bottom:14px;text-align:left;position:relative;z-index:1;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
+.sa-info-label{font-family:'Share Tech Mono',monospace;font-size:.57rem;color:rgba(192,57,43,.9);
+  letter-spacing:.25em;text-transform:uppercase;margin-bottom:9px;}
+.sa-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;
+  padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.sa-row:last-child{border-bottom:none;}
+.sa-lbl{font-family:'Share Tech Mono',monospace;font-size:.63rem;color:var(--text-dim);white-space:nowrap;flex-shrink:0;}
+.sa-val{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--text-parchment);text-align:right;word-break:break-all;}
+.sa-val.ip-blink{color:#ff6b1a;text-shadow:0 0 10px rgba(255,107,26,.8);animation:ip-pulse 1.5s ease-in-out infinite;}
+@keyframes ip-pulse{0%,100%{text-shadow:0 0 10px rgba(255,107,26,.8)}50%{text-shadow:0 0 20px rgba(255,107,26,1),0 0 40px rgba(255,107,26,.5)}}
+.sa-val.warn{color:#ff4422;font-size:.6rem;}
+.sa-warning{font-family:'Rajdhani',sans-serif;font-size:.76rem;color:rgba(192,57,43,.8);line-height:1.5;
+  margin-bottom:18px;padding:10px;border:1px solid rgba(192,57,43,.2);background:rgba(192,57,43,.05);position:relative;z-index:1;}
+#saCloseBtn{padding:10px 38px;background:linear-gradient(135deg,rgba(192,57,43,.2),rgba(192,57,43,.05));
+  border:1px solid rgba(192,57,43,.6);color:#ff8866;font-family:'Rajdhani',sans-serif;font-size:.86rem;
+  font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .3s;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));position:relative;z-index:1;}
+#saCloseBtn:hover{background:rgba(192,57,43,.25);box-shadow:0 0 20px rgba(192,57,43,.4);color:#ffaa88;}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px;}
+
+/* Disable selection sitewide */
+*{-webkit-user-select:none!important;-moz-user-select:none!important;user-select:none!important;}
+.quiz-question{-webkit-user-select:text!important;user-select:text!important;}
+
+@media(max-width:768px){
+  #sidebar{display:none;}
+  header,main,footer{margin-left:0;}
+  header{padding:24px 16px;}
+  main{padding:28px 14px;}
+  footer{padding:24px 16px;}
+}
+</style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<!-- Sidebar -->
+<aside id="sidebar">
+  <div class="sb-line"></div>
+  <div id="sidebar-text">Prof. Marco Dias &nbsp;·&nbsp; 2026</div>
+  <div class="sb-line"></div>
+</aside>
+
+<!-- Header -->
+<header>
+  <div class="header-badge">◈ Vestibular UFPR 2027 ◈</div>
+  <h1 class="site-title">Obras Literárias<br>do Vestibular</h1>
+  <p class="subtitle">Literatura Brasileira · Guia do Estudante</p>
+
+  <!-- Auth bar -->
+  <div id="authBar">
+    <button id="loginBtn" onclick="doLogin()">
+      <svg width="16" height="16" viewBox="0 0 48 48" style="vertical-align:middle;margin-right:6px">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      Entrar com Google para o Quiz
+    </button>
+    <div id="userInfo">
+      <img id="userAvatar" src="" alt="">
+      <span id="userName" style="font-family:'Rajdhani',sans-serif;font-size:.85rem;color:var(--text-parchment);"></span>
+    </div>
+    <button id="dashBtn" onclick="openDash()">📊 Painel do Professor</button>
+    <button id="logoutBtn" onclick="doLogout()">Sair</button>
+  </div>
+
+  <div class="header-deco">
+    <div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line r"></div>
+  </div>
+</header>
+
+<!-- Main -->
+<main>
+  <div class="section-label">Acervo de Obras</div>
+  <div class="books-grid" id="booksGrid"></div>
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="header-deco" style="margin-bottom:14px;">
+    <div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line r"></div>
+  </div>
+  <div class="footer-text">
+    <strong>Prof. Marco Dias</strong> &nbsp;·&nbsp; 2026<br>
+    © Todos os direitos reservados &nbsp;·&nbsp; Material pedagógico exclusivo para fins educacionais<br>
+    Vestibular UFPR 2027 &nbsp;·&nbsp; Literatura Brasileira
+  </div>
+</footer>
+
+<!-- Quiz Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-book-title" id="modalTitle"></div>
+      <div class="modal-author" id="modalAuthor"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="quizContainer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard Overlay -->
+<div id="dashOverlay">
+  <div class="dash-inner">
+    <div class="dash-header">
+      <div class="dash-title">📊 Painel do Professor</div>
+      <button class="dash-close" onclick="closeDash()">✕ Fechar</button>
+    </div>
+    <div class="dash-filters" id="dashFilters"></div>
+    <div class="dash-stats" id="dashStats"></div>
+    <div class="dash-table-wrap">
+      <table id="dashTable">
+        <thead>
+          <tr>
+            <th>Aluno</th>
+            <th>E-mail</th>
+            <th>Obra</th>
+            <th>Pontuação</th>
+            <th>%</th>
+            <th>Data/Hora</th>
+          </tr>
+        </thead>
+        <tbody id="dashTbody"></tbody>
+      </table>
+      <div class="dash-empty" id="dashEmpty" style="display:none;">Nenhum resultado encontrado.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════
+//  DADOS DAS OBRAS
+// ══════════════════════════════════
+const PROFESSOR_EMAIL = 'marcodias@gmail.com'; // ← altere para o seu e-mail Google
+
+const books = [
+  {
+    id:1,title:"A Falência",author:"Júlia Lopes de Almeida",year:"1901",
+    coverUrl:"https://covers.openlibrary.org/b/isbn/9786558700531-L.jpg",
+    coverColor:"#4a2800",emoji:"📜",
+    summary:"Romance naturalista que retrata a decadência financeira e moral de uma família burguesa carioca do século XIX. Júlia Lopes de Almeida expõe as contradições de uma sociedade que valoriza aparências em detrimento da ética.",
+    yearNote:"Publicado em 1901, auge do Naturalismo brasileiro",
+    cubes:[
+      {icon:"🏛️",label:"Escola",back:"Naturalismo / Realismo. Influência de Eça de Queirós e Zola."},
+      {icon:"💰",label:"Tema",back:"Falência moral e financeira. Crítica à especulação imobiliária."},
+      {icon:"👩",label:"Autora",back:"Primeira mulher indicada à Academia Brasileira de Letras."},
+      {icon:"🌆",label:"Cenário",back:"Rio de Janeiro da Belle Époque. Segundo Reinado em declínio."},
+      {icon:"📖",label:"Estilo",back:"Narrador onisciente, linguagem densa, crítica ao sistema financeiro."}
+    ],
+    quiz:[
+      {q:"Qual é o tema central de 'A Falência'?",
+       opts:["A busca por amor proibido","A decadência financeira e moral da burguesia","A escravidão no Brasil colonial","A guerra entre famílias rivais"],
+       ans:1,exp:"O romance retrata a ruína financeira e moral da família Maia, simbolizando a falência ética da burguesia movida pelas aparências."},
+      {q:"A qual escola literária pertence 'A Falência'?",
+       opts:["Romantismo","Modernismo","Naturalismo/Realismo","Simbolismo"],
+       ans:2,exp:"Insere-se no Naturalismo/Realismo, com forte influência de Eça de Queirós."},
+      {q:"Júlia Lopes de Almeida foi importante por qual razão histórica?",
+       opts:["Primeira romancista a usar o dialeto nordestino","Primeira mulher indicada à Academia Brasileira de Letras","Fundadora do Modernismo feminino","Primeira tradutora de Shakespeare no Brasil"],
+       ans:1,exp:"Apesar de sua imensa contribuição, foi preterida na fundação da ABL por ser mulher."},
+      {q:"Qual cidade serve como cenário principal de 'A Falência'?",
+       opts:["São Paulo","Salvador","Rio de Janeiro","Recife"],
+       ans:2,exp:"O Rio de Janeiro da Belle Époque é o palco que reflete as contradições da sociedade carioca."},
+      {q:"O personagem Gargantas em 'A Falência' representa:",
+       opts:["O herói romântico da classe operária","O especulador imobiliário sem escrúpulos","O sacerdote defensor da moral","O imigrante bem-sucedido"],
+       ans:1,exp:"Gargantas simboliza o capitalismo selvagem e a especulação que corrói os valores morais da burguesia."}
+    ]
+  },
+  {
+    id:2,title:"Eu",author:"Augusto dos Anjos",year:"1912",
+    coverUrl:"https://covers.openlibrary.org/b/isbn/9788571640115-L.jpg",
+    coverColor:"#1a0a2e",emoji:"💀",
+    summary:"Único livro publicado em vida pelo 'Poeta da Morte'. Com vocabulário científico e filosófico, expõe o pessimismo, a decomposição e a angústia do ser humano diante da morte.",
+    yearNote:"Publicado em 1912, com apenas uma edição em vida do autor",
+    cubes:[
+      {icon:"💀",label:"Tema",back:"Morte, decomposição, dor e niilismo. Schopenhauer e Darwin."},
+      {icon:"🔬",label:"Vocabulário",back:"'Bactéria', 'protoplasma', 'anfisbena' — ciência na poesia."},
+      {icon:"🌑",label:"Escola",back:"Pré-Modernismo com Simbolismo, Parnasianismo e Naturalismo."},
+      {icon:"🎭",label:"Tom",back:"Pessimismo radical. A existência como sofrimento sem redenção."},
+      {icon:"📍",label:"Origem",back:"Paraibano, viveu em pobreza. Morreu aos 30 anos, em 1914."}
+    ],
+    quiz:[
+      {q:"Qual é a principal característica do vocabulário de Augusto dos Anjos?",
+       opts:["Termos regionalistas nordestinos","Termos científicos e filosóficos inseridos na poesia","Linguagem simples e popular","Arcaísmos do período colonial"],
+       ans:1,exp:"Augusto dos Anjos inovou ao usar 'protoplasma', 'bactéria' etc., criando linguagem única entre ciência e angústia."},
+      {q:"'Eu' pertence ao período literário chamado:",
+       opts:["Romantismo","Modernismo","Pré-Modernismo","Barroco"],
+       ans:2,exp:"Classificado no Pré-Modernismo, com influências do Simbolismo, Parnasianismo e Naturalismo científico."},
+      {q:"'Psicologia de um Vencido' expressa principalmente:",
+       opts:["Esperança na vida após a morte","Pessimismo — o homem condenado ao sofrimento","Celebração da natureza tropical","Exaltação do amor romântico"],
+       ans:1,exp:"Um dos sonetos mais pessimistas do Brasil: o eu-lírico se declara 'vencido' pela dor e futilidade da existência."},
+      {q:"Qual filósofo influenciou mais profundamente Augusto dos Anjos?",
+       opts:["Nietzsche","Hegel","Schopenhauer","Descartes"],
+       ans:2,exp:"Schopenhauer e seu pessimismo — a vida como sofrimento — influenciaram diretamente o poeta."},
+      {q:"Como Augusto dos Anjos morreu e com quantos anos?",
+       opts:["Suicídio aos 45 anos","Pneumonia/tuberculose aos 30 anos","Acidente aos 38 anos","Velhice aos 72 anos"],
+       ans:1,exp:"Morreu em 1914 de pneumonia, com apenas 30 anos, encerrando uma das obras mais originais da poesia brasileira."}
+    ]
+  },
+  {
+    id:3,title:"Noite na Taverna",author:"Álvares de Azevedo",year:"1855",
+    coverUrl:"https://covers.openlibrary.org/b/isbn/9788525413291-L.jpg",
+    coverColor:"#1a0808",emoji:"🍷",
+    summary:"Obra do Ultra-Romantismo publicada postumamente, composta por sete contos narrados por jovens boêmios. Marcada pelo byronismo, traz morte, necrofilia, libertinagem e pessimismo exacerbado.",
+    yearNote:"Publicado postumamente em 1855, escrito entre 1850–1852",
+    cubes:[
+      {icon:"🌙",label:"Gênero",back:"Prosa poética do Ultra-Romantismo. Sete contos de horror e erotismo."},
+      {icon:"😈",label:"Temas",back:"Morte, libertinagem, necrofilia, satanismo e pessimismo byroniano."},
+      {icon:"🎭",label:"Estrutura",back:"Narrativa moldura: personagens contam histórias numa taverna."},
+      {icon:"🇬🇧",label:"Influência",back:"Lord Byron, Musset e o spleen francês. O herói fatalista e entediado."},
+      {icon:"📅",label:"Tragédia",back:"Álvares de Azevedo morreu aos 20 anos sem publicar nada em vida."}
+    ],
+    quiz:[
+      {q:"Qual é a estrutura narrativa de 'Noite na Taverna'?",
+       opts:["Um único narrador em primeira pessoa","Sete personagens contam histórias numa taverna","Uma carta entre dois amantes","Cartas de um soldado para a família"],
+       ans:1,exp:"Usa a narrativa moldura: sete jovens boêmios narram suas histórias de libertinagem e horror."},
+      {q:"Qual corrente literária 'Noite na Taverna' representa?",
+       opts:["Arcadismo","Realismo","Ultra-Romantismo","Pré-Modernismo"],
+       ans:2,exp:"É o exemplo máximo do Ultra-Romantismo brasileiro, com influência do byronismo inglês."},
+      {q:"O que é o 'byronismo' presente na obra?",
+       opts:["Técnica de versificação com rimas alternadas","Postura do herói fatalista, entediado e rebelde, influenciado por Byron","Movimento inspirado na Revolução Francesa","Uso de metáforas religiosas na poesia"],
+       ans:1,exp:"Refere-se à influência de Lord Byron: personagens rebeldes, fatalistas, que buscam prazer extremo diante da morte."},
+      {q:"Qual tema controverso aparece na história 'Bertram'?",
+       opts:["Homossexualidade","Escravidão","Necrofilia","Parricídio"],
+       ans:2,exp:"Bertram se relaciona com quem acredita ser uma mulher viva, descobrindo tratar-se de um cadáver — choque do Romantismo brasileiro."},
+      {q:"Em que contexto foi publicada 'Noite na Taverna'?",
+       opts:["Durante a vida do autor, aos 20 anos","Postumamente, após sua morte aos 20 anos","Décadas depois, no Modernismo","No período colonial, censurada pela Igreja"],
+       ans:1,exp:"Álvares de Azevedo morreu em 1852 com 20 anos. A obra foi publicada postumamente em 1855."}
+    ]
+  },
+  {
+    id:4,title:"O Demônio Familiar",author:"José de Alencar",year:"1857",
+    coverUrl:"https://covers.openlibrary.org/b/isbn/9788583860006-L.jpg",
+    coverColor:"#0a1a0a",emoji:"🎭",
+    summary:"Peça teatral em que Pedro, escravo doméstico manipulador, interfere nas relações amorosas de seus senhores. Alencar usa a comédia para criticar a escravidão e suas distorções morais.",
+    yearNote:"Estreou em 1857 no Teatro Ginásio, Rio de Janeiro",
+    cubes:[
+      {icon:"🎭",label:"Gênero",back:"Comédia dramática em quatro atos. Influência do realismo de Dumas Filho."},
+      {icon:"⛓️",label:"Crítica",back:"Crítica sutil à escravidão: Pedro demonstra como perverte o caráter."},
+      {icon:"😈",label:"Pedro",back:"Escravo protagonista manipulador. Pede para ser vendido — libertação impossível."},
+      {icon:"💑",label:"Amor",back:"Intriga amorosa entre Eduardo, Carlotinha e outros perturbada por Pedro."},
+      {icon:"🏆",label:"Importância",back:"Considerada a melhor peça do teatro realista brasileiro do século XIX."}
+    ],
+    quiz:[
+      {q:"Quem é o 'demônio familiar' no título da peça?",
+       opts:["Um espírito maligno","Pedro, escravo que interfere nos relacionamentos","O pai autoritário da família","Um padre corrupto"],
+       ans:1,exp:"Pedro é o escravo doméstico que com intrigas e mentiras perturba todos os relacionamentos da casa."},
+      {q:"Qual é a crítica social central em 'O Demônio Familiar'?",
+       opts:["Corrupção do clero","A escravidão e como perverte moralmente todos os envolvidos","Imperialismo europeu no Brasil","Desigualdade entre homens e mulheres"],
+       ans:1,exp:"Alencar mostra como a escravidão deforma o caráter de todos: Pedro age como estratégia de sobrevivência."},
+      {q:"A que gênero literário pertence 'O Demônio Familiar'?",
+       opts:["Romance histórico","Poesia épica","Peça teatral — comédia dramática","Conto regionalista"],
+       ans:2,exp:"É comédia dramática em quatro atos, influenciada pelo realismo teatral europeu de Alexandre Dumas Filho."},
+      {q:"Qual é o desfecho de Pedro ao final da peça?",
+       opts:["Ganha a liberdade e parte para o Sul","Pede para ser vendido a outro senhor","É executado por traição","Torna-se homem livre e rico"],
+       ans:1,exp:"Pedro pede para ser vendido, revelando a ironia trágica da escravidão: o sistema o mantém preso."},
+      {q:"José de Alencar é também conhecido por qual outra obra fundamental?",
+       opts:["Dom Casmurro","O Guarani","Memórias Póstumas de Brás Cubas","A Moreninha"],
+       ans:1,exp:"'O Guarani' (1857), romance indianista com o índio Peri e Ceci, símbolo da identidade nacional."}
+    ]
+  },
+  {
+    id:5,title:"O Drible",author:"Sérgio Rodrigues",year:"2013",
+    coverUrl:"https://covers.openlibrary.org/b/isbn/9788543106328-L.jpg",
+    coverColor:"#001a0a",emoji:"⚽",
+    summary:"Romance contemporâneo que usa o futebol como metáfora para discutir identidade brasileira, masculinidade e memória. Joca investiga o lendário drible do pai, Sebastião Trovoada, reconstruindo mitos e silêncios.",
+    yearNote:"Publicado em 2013, vencedor do Prêmio São Paulo de Literatura",
+    cubes:[
+      {icon:"⚽",label:"Metáfora",back:"O futebol como espelho da identidade brasileira e relação pai-filho."},
+      {icon:"🔍",label:"Narrativa",back:"Narrativa de investigação: Joca reconstrói o mito do pai desaparecido."},
+      {icon:"🇧🇷",label:"Brasil",back:"O que significa ser brasileiro — filtrado pela cultura do futebol."},
+      {icon:"👨‍👦",label:"Tema",back:"Paternidade ausente, memória, mito e identidade masculina."},
+      {icon:"🏆",label:"Prêmio",back:"Venceu o Prêmio São Paulo de Literatura 2014, melhor romance."}
+    ],
+    quiz:[
+      {q:"Qual é o nome do pai de Joca e por que é lembrado?",
+       opts:["Manuel dos Santos, o Garrincha","Sebastião Trovoada, pelo seu lendário drible","Pelé, pelo gol mais bonito","Zico, pela dança com a bola"],
+       ans:1,exp:"Sebastião Trovoada é o pai de Joca, jogador semi-lendário cujo drible mágico é o centro da investigação."},
+      {q:"Qual é a profissão do protagonista Joca?",
+       opts:["Jogador de futebol profissional","Cronista esportivo e jornalista","Técnico de futebol","Árbitro aposentado"],
+       ans:1,exp:"Joca é cronista esportivo, o que justifica sua investigação sobre o passado e o famoso drible do pai."},
+      {q:"Além do futebol, qual outro tema central é explorado em 'O Drible'?",
+       opts:["Corrupção política","A relação com o pai ausente e a construção da memória","A ditadura militar","Imigração nordestina para São Paulo"],
+       ans:1,exp:"A relação pai-filho ausente é o coração emocional: Joca tenta reconstruir quem foi seu pai."},
+      {q:"O futebol em 'O Drible' funciona principalmente como:",
+       opts:["Relato histórico documental","Metáfora para identidade nacional e relações humanas","Crítica à corrupção da FIFA","Autobiografia do autor"],
+       ans:1,exp:"O futebol é lente para explorar identidade brasileira, masculinidade, mito e relações afetivas pai-filho."},
+      {q:"'O Drible' pertence a qual geração da literatura brasileira?",
+       opts:["Modernismo de 1922","Geração de 45","Literatura contemporânea (século XXI)","Pré-Modernismo"],
+       ans:2,exp:"Publicado em 2013, é parte da literatura brasileira contemporânea, com foco em identidade e memória."}
+    ]
+  },
+  {
+    id:6,title:"O Quinze",author:"Rachel de Queiroz",year:"1930",
+    coverUrl:"https://covers.openlibrary.org/b/isbn/9788520916802-L.jpg",
+    coverColor:"#1a1000",emoji:"🌵",
+    summary:"Publicado quando a autora tinha 20 anos, narra a grande seca de 1915 no Ceará. Acompanha Conceição, mulher moderna e independente, e o êxodo de retirantes. Marco do Regionalismo nordestino.",
+    yearNote:"Publicado em 1930 — Rachel de Queiroz tinha apenas 20 anos",
+    cubes:[
+      {icon:"🌵",label:"Seca",back:"A seca de 1915 no Ceará como catástrofe humana e social."},
+      {icon:"👩",label:"Conceição",back:"Protagonista modernista: intelectual, independente, questiona o casamento."},
+      {icon:"📅",label:"Precocidade",back:"Rachel escreveu com 20 anos. Marco do Regionalismo nordestino."},
+      {icon:"🇧🇷",label:"Modernismo",back:"Segunda fase do Modernismo: foco no social, regional e nordestino."},
+      {icon:"🏆",label:"Legado",back:"Primeira mulher eleita para a Academia Brasileira de Letras (1977)."}
+    ],
+    quiz:[
+      {q:"Qual catástrofe climática é retratada em 'O Quinze'?",
+       opts:["A enchente do Rio de 1967","A grande seca de 1915 no Ceará","A seca de 1877 no sertão","A estiagem de 1930 em Pernambuco"],
+       ans:1,exp:"O título refere-se a 1915, ano da grande seca que provocou o êxodo de milhares de retirantes cearenses."},
+      {q:"Qual é a importância da personagem Conceição?",
+       opts:["Heroína romântica que espera por amor","Mulher moderna, intelectual, independente, que questiona papéis femininos","Retirante analfabeta que foge da seca","Mãe tradicional símbolo de resistência"],
+       ans:1,exp:"Conceição é uma das primeiras protagonistas feministas do Brasil: professora, leitora, recusa casar por convenção."},
+      {q:"Com quantos anos Rachel de Queiroz publicou 'O Quinze'?",
+       opts:["16 anos","20 anos","25 anos","30 anos"],
+       ans:1,exp:"Publicou em 1930 com apenas 20 anos, tornando-se um fenômeno literário."},
+      {q:"'O Quinze' pertence a qual fase do Modernismo?",
+       opts:["Primeira fase — Semana de Arte Moderna","Segunda fase — Regionalismo e prosa social","Terceira fase — Geração de 45","Pré-Modernismo"],
+       ans:1,exp:"Faz parte da Segunda fase do Modernismo (anos 30), ao lado de Graciliano Ramos e Jorge Amado."},
+      {q:"Rachel de Queiroz foi a primeira mulher a conquistar qual honraria?",
+       opts:["Prêmio Nobel de Literatura","Ser eleita para a Academia Brasileira de Letras","Ganhar o Prêmio Camões","Publicar na Revista Modernista"],
+       ans:1,exp:"Em 1977, foi a primeira mulher eleita para a ABL, quebrando barreira histórica desde 1897."}
+    ]
+  },
+  {
+    id:7,title:"O Sol na Cabeça",author:"Geovani Martins",year:"2018",
+    coverUrl:"https://covers.openlibrary.org/b/isbn/9788535930948-L.jpg",
+    coverColor:"#001a1a",emoji:"🌊",
+    summary:"Coletânea de contos que retrata a periferia carioca com olhar íntimo e poético. Jovens das favelas do Rio transitam entre o asfalto e o morro, enfrentando violência policial, vulnerabilidade e o sonho de vida diferente.",
+    yearNote:"Publicado em 2018 pela Companhia das Letras — fenômeno editorial",
+    cubes:[
+      {icon:"🌊",label:"Rio",back:"Favelas e praias do Rio. A fronteira entre dois mundos em conflito."},
+      {icon:"👦",label:"Jovens",back:"Protagonistas jovens e periféricos navegando entre violência e sonhos."},
+      {icon:"✍️",label:"Estilo",back:"Linguagem oral e periférica. Narrador de dentro da comunidade."},
+      {icon:"⚠️",label:"Temas",back:"Violência policial, racismo, vulnerabilidade social, drogas."},
+      {icon:"🌍",label:"Sucesso",back:"Traduzido para mais de 20 países. Autor vinha de família humilde."}
+    ],
+    quiz:[
+      {q:"Qual é o cenário principal dos contos de 'O Sol na Cabeça'?",
+       opts:["O sertão nordestino","As favelas e periferias do Rio de Janeiro","O centro empresarial de São Paulo","O interior de Minas Gerais"],
+       ans:1,exp:"Os contos se passam nas favelas cariocas, na fronteira entre o morro e o asfalto."},
+      {q:"Qual aspecto do estilo de Geovani Martins é mais marcante?",
+       opts:["Linguagem erudita e hermética","Linguagem oral e periférica, voz de dentro da comunidade","Narração impessoal e científica","Prosa poética do Simbolismo"],
+       ans:1,exp:"Narra de dentro da periferia, com linguagem coloquial e autêntica, sem o olhar externo condescendente."},
+      {q:"Qual tema de violência é recorrente nos contos?",
+       opts:["Violência doméstica entre casais","Violência policial contra jovens negros periféricos","Conflitos entre gangues rurais","Violência de torcidas organizadas"],
+       ans:1,exp:"Violência policial e racismo estrutural são centrais — jovens negros sujeitos à arbitrariedade do Estado."},
+      {q:"O conto 'O Sol na Cabeça' aborda principalmente:",
+       opts:["Uma partida de futebol na favela","Jovem periférico num ônibus percebendo olhares de desconfiança","Uma viagem de pescadores","A história de um músico de funk"],
+       ans:1,exp:"O conto narra jovem negro num ônibus percebendo ser observado com suspeita — metáfora do racismo cotidiano."},
+      {q:"O livro foi traduzido para quantos países aproximadamente?",
+       opts:["5 países","10 países","Mais de 20 países","Apenas países lusófonos"],
+       ans:2,exp:"Tornou-se fenômeno editorial, traduzido para mais de 20 línguas, revelando interesse global pela literatura periférica brasileira."}
+    ]
+  },
+  {
+    id:8,title:"Poema Sujo",author:"Ferreira Gullar",year:"1976",
+    coverUrl:"https://covers.openlibrary.org/b/isbn/9788520936697-L.jpg",
+    coverColor:"#1a0a1a",emoji:"✍️",
+    summary:"Escrito no exílio em Buenos Aires durante a ditadura militar, é um dos maiores poemas da língua portuguesa. Em torrencial fluxo de consciência, Gullar evoca sua infância em São Luís do Maranhão, o Brasil, a vida e a resistência.",
+    yearNote:"Escrito em 1975, publicado em 1976 — exílio político na Argentina",
+    cubes:[
+      {icon:"✈️",label:"Exílio",back:"Escrito em Buenos Aires. A ditadura militar como pano de fundo."},
+      {icon:"📜",label:"Forma",back:"Longo poema em fluxo de consciência. Sem divisão estrófica convencional."},
+      {icon:"🏙️",label:"Origem",back:"Evocação lírica de São Luís do Maranhão. Memória como resistência."},
+      {icon:"💪",label:"Resistência",back:"Arte como resistência à ditadura. A vida como reafirmação diante do medo."},
+      {icon:"🏆",label:"Prêmio",back:"Ferreira Gullar recebeu o Prêmio Camões em 2010."}
+    ],
+    quiz:[
+      {q:"Em qual cidade e contexto Gullar escreveu 'Poema Sujo'?",
+       opts:["Paris, Segunda Guerra Mundial","Buenos Aires, exílio da ditadura militar brasileira","São Paulo, Semana de Arte Moderna","Recife, revolta da Praieira"],
+       ans:1,exp:"Gullar escreveu em 1975 em Buenos Aires, exilado pela ditadura brasileira (1964–1985), sob risco de extradição."},
+      {q:"Qual cidade da infância de Gullar é evocada com lirismo?",
+       opts:["Rio de Janeiro","Belém do Pará","São Luís do Maranhão","Fortaleza"],
+       ans:2,exp:"São Luís é sua cidade natal e o centro emocional do poema, com memórias da infância como âncora de identidade."},
+      {q:"Qual é a principal característica formal de 'Poema Sujo'?",
+       opts:["Sonetos rigorosos com rima ABBA","Haicais com três versos","Longo fluxo de consciência torrencial, sem divisão estrófica convencional","Décimas espinelas da tradição popular"],
+       ans:2,exp:"O poema é um longo fluxo lírico que mistura memória, política e filosofia, rompendo com a métrica tradicional."},
+      {q:"O título 'Poema Sujo' sugere principalmente:",
+       opts:["Linguagem obscena e imoral","Sujeira das ruas de São Luís","Vida crua e política, oposta à arte 'pura' e asséptica","Crítica ao saneamento do Brasil"],
+       ans:2,exp:"O 'sujo' evoca a materialidade da vida, o corpo e a política — em oposição a uma arte alienada da realidade."},
+      {q:"Qual importante prêmio Ferreira Gullar recebeu em 2010?",
+       opts:["Prêmio Nobel de Literatura","Prêmio Camões","Prêmio Jabuti Especial","Prêmio São Paulo de Literatura"],
+       ans:1,exp:"Recebeu o Prêmio Camões em 2010, o mais importante da literatura em língua portuguesa."}
+    ]
+  }
+];
+
+// ══════════════════════════════════
+//  ESTADO GLOBAL
+// ══════════════════════════════════
+let currentUser = null;
+let currentBook = null;
+let currentQ    = 0;
+let score       = 0;
+let answered    = false;
+let userIP      = null;
+let userGeo     = '';
+let allResults  = [];
+let activeFilter = 'all';
+let fbReady = false;
+
+// ══════════════════════════════════
+//  FIREBASE — aguarda módulo ES carregar
+// ══════════════════════════════════
+window.addEventListener('firebaseReady', () => {
+  fbReady = true;
+  const fb = window._fb;
+
+  fb.onAuthStateChanged(fb.auth, user => {
+    currentUser = user;
+    updateAuthUI();
+  });
+});
+
+function updateAuthUI() {
+  const loginBtn  = document.getElementById('loginBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const dashBtn   = document.getElementById('dashBtn');
+  const userInfo  = document.getElementById('userInfo');
+  const userAvatar= document.getElementById('userAvatar');
+  const userName  = document.getElementById('userName');
+
+  if (currentUser) {
+    loginBtn.style.display  = 'none';
+    logoutBtn.style.display = 'inline-block';
+    userInfo.style.display  = 'flex';
+    userName.textContent    = currentUser.displayName || currentUser.email;
+    userAvatar.src          = currentUser.photoURL || '';
+    userAvatar.style.display= currentUser.photoURL ? 'block' : 'none';
+
+    // Mostra painel só para o professor
+    if (currentUser.email === PROFESSOR_EMAIL) {
+      dashBtn.style.display = 'inline-block';
+    }
+  } else {
+    loginBtn.style.display  = 'inline-block';
+    logoutBtn.style.display = 'none';
+    dashBtn.style.display   = 'none';
+    userInfo.style.display  = 'none';
+  }
+}
+
+function doLogin() {
+  if (!fbReady) { alert('Aguarde o carregamento do sistema...'); return; }
+  const fb = window._fb;
+  fb.signInWithPopup(fb.auth, fb.provider).catch(err => {
+    console.error(err);
+    alert('Erro ao fazer login. Verifique as configurações do Firebase.');
+  });
+}
+
+function doLogout() {
+  if (!fbReady) return;
+  window._fb.signOut(window._fb.auth);
+}
+
+// ══════════════════════════════════
+//  RENDER BOOKS
+// ══════════════════════════════════
+function renderBooks() {
+  const grid = document.getElementById('booksGrid');
+  books.forEach((book, idx) => {
+    const card = document.createElement('div');
+    card.className = 'book-card';
+    const cubesHTML = book.cubes.map(c => `
+      <div class="cube-wrapper" title="${c.label}">
+        <div class="cube">
+          <div class="cube-face face-front"><span class="face-front-icon">${c.icon}</span><span>${c.label}</span></div>
+          <div class="cube-face face-back">${c.back}</div>
+        </div>
+      </div>`).join('');
+
+    card.innerHTML = `
+      <div class="card-header">
+        <img src="${book.coverUrl}" alt="Capa: ${book.title}"
+          onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,${book.coverColor},#0a0502)';this.parentElement.innerHTML+='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem;\\'>${book.emoji}</div>'">
+        <div class="card-header-overlay"></div>
+        <div class="card-num">0${book.id}/08</div>
+      </div>
+      <div class="card-body">
+        <div class="book-title">${book.title}</div>
+        <div class="book-author">${book.author}</div>
+        <div class="book-year">◈ ${book.year}</div>
+        <div class="book-summary">${book.summary}</div>
+        <div class="cubes-title">[ Passe o mouse nos cubos para detalhes ]</div>
+        <div class="cubes-row">${cubesHTML}</div>
+        <button class="quiz-btn" onclick="openQuiz(${book.id})"><span>⚡ Iniciar Quiz da Obra</span></button>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ══════════════════════════════════
+//  QUIZ
+// ══════════════════════════════════
+function openQuiz(bookId) {
+  currentBook = books.find(b => b.id === bookId);
+  currentQ = 0; score = 0; answered = false;
+  document.getElementById('modalTitle').textContent  = currentBook.title;
+  document.getElementById('modalAuthor').textContent = currentBook.author + ' · ' + currentBook.year;
+  document.getElementById('modalOverlay').classList.add('active');
+  renderQuestion();
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+function renderQuestion() {
+  const container = document.getElementById('quizContainer');
+
+  // Gate: precisa estar logado
+  if (!currentUser) {
+    container.innerHTML = `
+      <div class="quiz-login-gate">
+        <div style="font-size:2rem;margin-bottom:12px;">🔐</div>
+        <p>Para participar do quiz e ter seu resultado registrado para o <strong>Prof. Marco Dias</strong>, você precisa entrar com sua conta Google.</p>
+        <button class="btn-google-login" onclick="doLogin()">
+          <svg width="18" height="18" viewBox="0 0 48 48">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          Entrar com Google
+        </button>
+      </div>`;
+    return;
+  }
+
+  const q = currentBook.quiz[currentQ];
+  const total = currentBook.quiz.length;
+  const pct = (currentQ / total) * 100;
+  answered = false;
+
+  container.innerHTML = `
+    <div style="font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--gold-dim);margin-bottom:14px;letter-spacing:.15em;">
+      👤 ${currentUser.displayName || currentUser.email}
+    </div>
+    <div class="quiz-counter">
+      <span>Q${currentQ+1}/${total}</span>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <span>PONTOS: ${score}</span>
+    </div>
+    <div class="quiz-question">${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((opt,i)=>`<button class="quiz-option" onclick="selectAnswer(${i})">${String.fromCharCode(65+i)}) ${opt}</button>`).join('')}
+    </div>
+    <div class="feedback-msg" id="feedbackMsg"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">
+      ${currentQ < total-1 ? 'Próxima →' : 'Ver Resultado ✓'}
+    </button>`;
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q   = currentBook.quiz[currentQ];
+  const opts= document.querySelectorAll('.quiz-option');
+  const fb  = document.getElementById('feedbackMsg');
+  const nb  = document.getElementById('nextBtn');
+  opts.forEach(o => o.disabled = true);
+  if (idx === q.ans) {
+    score++;
+    opts[idx].classList.add('correct');
+    fb.className = 'feedback-msg show ok';
+    fb.innerHTML = `✔ Correto! ${q.exp}`;
+  } else {
+    opts[idx].classList.add('wrong');
+    opts[q.ans].classList.add('correct');
+    fb.className = 'feedback-msg show err';
+    fb.innerHTML = `✘ Incorreto. A certa era <strong>${String.fromCharCode(65+q.ans)}</strong>. ${q.exp}`;
+  }
+  nb.classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= currentBook.quiz.length) showResult();
+  else renderQuestion();
+}
+
+async function showResult() {
+  const total = currentBook.quiz.length;
+  const pct   = Math.round((score / total) * 100);
+  let msg, emoji;
+  if (pct===100){ msg="🏆 Perfeito! Você domina completamente esta obra. Está pronto(a) para a UFPR!"; emoji="🥇"; }
+  else if(pct>=80){ msg="⭐ Excelente! Ótimo domínio da obra. Revise os pontos que errou e estará pronto(a)!"; emoji="🥈"; }
+  else if(pct>=60){ msg="📚 Bom desempenho! Conhece a obra, mas há pontos a aprofundar. Continue estudando!"; emoji="📖"; }
+  else if(pct>=40){ msg="💪 Você está no caminho. Releia o resumo e tente novamente!"; emoji="🎯"; }
+  else { msg="🔥 Não desanime! Dedique mais tempo a esta obra e refaça o quiz!"; emoji="💡"; }
+
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = `
+    <div class="quiz-result show">
+      <div style="font-size:3rem;margin-bottom:8px;">${emoji}</div>
+      <div class="result-label">Resultado Final — ${currentUser.displayName || currentUser.email}</div>
+      <div class="result-score">${score}/${total}</div>
+      <div class="result-label" style="margin-top:6px;">${pct}% de acerto</div>
+      <div class="result-msg">${msg}</div>
+      <div id="savingNote" class="saving-note show" style="color:var(--neon-cyan);">💾 Salvando resultado...</div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px;">
+        <button class="restart-btn" onclick="openQuiz(${currentBook.id})">↺ Refazer Quiz</button>
+        <button class="restart-btn" style="border-color:var(--gold);color:var(--gold-bright);" onclick="closeModal()">✕ Fechar</button>
+      </div>
+    </div>`;
+
+  // Salva no Firebase
+  await saveResult(score, total, pct);
+}
+
+async function saveResult(score, total, pct) {
+  const note = document.getElementById('savingNote');
+  if (!fbReady || !currentUser) {
+    if(note){ note.style.color='var(--neon-orange)'; note.textContent='⚠️ Login necessário para salvar resultado.'; }
+    return;
+  }
+  try {
+    const fb = window._fb;
+    const ts = Date.now();
+    const docId = `${currentUser.uid}_${currentBook.id}_${ts}`;
+    await fb.setDoc(fb.doc(fb.db, 'quiz_results', docId), {
+      uid:         currentUser.uid,
+      name:        currentUser.displayName || 'Sem nome',
+      email:       currentUser.email,
+      photoURL:    currentUser.photoURL || '',
+      bookId:      currentBook.id,
+      bookTitle:   currentBook.title,
+      score:       score,
+      total:       total,
+      percent:     pct,
+      ip:          userIP || 'não disponível',
+      timestamp:   fb.serverTimestamp(),
+      tsMillis:    ts
+    });
+    if(note){ note.style.color='#80ffb0'; note.textContent='✔ Resultado salvo! O Prof. Marco Dias pode ver seu desempenho.'; }
+  } catch(err) {
+    console.error(err);
+    if(note){ note.style.color='var(--neon-orange)'; note.textContent='⚠️ Erro ao salvar: verifique a configuração do Firebase.'; }
+  }
+}
+
+// ══════════════════════════════════
+//  DASHBOARD DO PROFESSOR
+// ══════════════════════════════════
+async function openDash() {
+  if (!currentUser || currentUser.email !== PROFESSOR_EMAIL) return;
+  document.getElementById('dashOverlay').classList.add('active');
+  await loadDashData();
+}
+
+function closeDash() {
+  document.getElementById('dashOverlay').classList.remove('active');
+}
+
+async function loadDashData() {
+  if (!fbReady) return;
+  const tbody = document.getElementById('dashTbody');
+  const empty = document.getElementById('dashEmpty');
+  tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-dim);font-family:\'Share Tech Mono\',monospace;font-size:.7rem;padding:30px;letter-spacing:.2em;">CARREGANDO...</td></tr>';
+
+  try {
+    const fb = window._fb;
+    const q  = fb.query(fb.collection(fb.db, 'quiz_results'), fb.orderBy('tsMillis','desc'));
+    const snap = await fb.getDocs(q);
+    allResults = [];
+    snap.forEach(d => allResults.push({id:d.id,...d.data()}));
+    buildFilters();
+    renderDash('all');
+  } catch(err) {
+    console.error(err);
+    tbody.innerHTML = `<tr><td colspan="6" style="color:#ff9090;padding:30px;text-align:center;font-family:'Rajdhani',sans-serif;">${err.code === 'permission-denied' ? '⚠️ Configure as regras do Firestore para permitir leitura pelo professor.' : '⚠️ Erro ao carregar: ' + err.message}</td></tr>`;
+  }
+}
+
+function buildFilters() {
+  const area = document.getElementById('dashFilters');
+  const filters = [{id:'all',label:'Todos'},...books.map(b=>({id:b.id,label:b.title}))];
+  area.innerHTML = filters.map(f=>`
+    <button class="filter-btn ${f.id===activeFilter?'active':''}"
+      onclick="setFilter('${f.id}')">${f.id==='all'?'Todas as Obras':f.label}</button>`).join('');
+}
+
+function setFilter(id) {
+  activeFilter = id;
+  buildFilters();
+  renderDash(id);
+}
+
+function renderDash(filter) {
+  const data   = filter==='all' ? allResults : allResults.filter(r=>r.bookId==filter);
+  const tbody  = document.getElementById('dashTbody');
+  const empty  = document.getElementById('dashEmpty');
+  const statsEl= document.getElementById('dashStats');
+
+  // Stats
+  const total    = data.length;
+  const avg      = total ? Math.round(data.reduce((s,r)=>s+r.percent,0)/total) : 0;
+  const students = new Set(data.map(r=>r.uid)).size;
+  const best     = total ? Math.max(...data.map(r=>r.percent)) : 0;
+
+  statsEl.innerHTML = `
+    <div class="stat-box"><div class="stat-num">${total}</div><div class="stat-lbl">Tentativas</div></div>
+    <div class="stat-box"><div class="stat-num">${students}</div><div class="stat-lbl">Alunos únicos</div></div>
+    <div class="stat-box"><div class="stat-num">${avg}%</div><div class="stat-lbl">Média geral</div></div>
+    <div class="stat-box"><div class="stat-num">${best}%</div><div class="stat-lbl">Melhor nota</div></div>`;
+
+  if (!total) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  function pillClass(p){ if(p>=80)return'score-a'; if(p>=60)return'score-b'; if(p>=40)return'score-c'; return'score-d'; }
+  function fmtDate(ts){ if(!ts)return'—'; const d=new Date(ts); return d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}); }
+
+  tbody.innerHTML = data.map(r=>`
+    <tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px;">
+          ${r.photoURL?`<img src="${r.photoURL}" style="width:24px;height:24px;border-radius:50%;border:1px solid rgba(212,160,23,.3);" onerror="this.style.display='none'">`:''}
+          <span>${r.name||'—'}</span>
+        </div>
+      </td>
+      <td style="font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--text-dim);">${r.email||'—'}</td>
+      <td style="color:var(--gold-dim);">${r.bookTitle||'—'}</td>
+      <td><span class="score-pill ${pillClass(r.percent)}">${r.score}/${r.total}</span></td>
+      <td><span class="score-pill ${pillClass(r.percent)}">${r.percent}%</span></td>
+      <td style="font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--text-dim);">${fmtDate(r.tsMillis)}</td>
+    </tr>`).join('');
+}
+
+// ══════════════════════════════════
+//  SEGURANÇA — clique direito e teclas
+// ══════════════════════════════════
+fetch('https://api.ipify.org?format=json')
+  .then(r=>r.json()).then(d=>{ userIP=d.ip;
+    return fetch(`https://ipapi.co/${d.ip}/json/`);
+  }).then(r=>r.json()).then(geo=>{
+    userGeo=geo.city?`${geo.city}, ${geo.region} — ${geo.country_name}`:'';
+  }).catch(()=>{ userIP=null; });
+
+function getDeviceInfo(){
+  return {
+    platform: navigator.platform||'Desconhecido',
+    lang:     navigator.language||'Desconhecido',
+    screen:   `${window.screen.width}x${window.screen.height}`,
+    tz:       Intl.DateTimeFormat().resolvedOptions().timeZone||'',
+    now:      new Date().toLocaleString('pt-BR')
+  };
+}
+
+function showSecurityAlert(reason){
+  const ex=document.getElementById('secAlertOverlay');
+  if(ex) ex.remove();
+  const di=getDeviceInfo();
+  const ipLine = userIP
+    ? `<div class="sa-row"><span class="sa-lbl">🌐 Endereço IP</span><span class="sa-val ip-blink">${userIP}</span></div>`
+    : `<div class="sa-row"><span class="sa-lbl">🌐 Aviso</span><span class="sa-val ip-blink">Seu IP foi registrado ao tentar acessar informações privilegiadas</span></div>`;
+  const geoLine=userGeo?`<div class="sa-row"><span class="sa-lbl">📍 Localização</span><span class="sa-val">${userGeo}</span></div>`:'';
+  const tzLine=di.tz?`<div class="sa-row"><span class="sa-lbl">🌐 Fuso Horário</span><span class="sa-val">${di.tz}</span></div>`:'';
+
+  const overlay=document.createElement('div');
+  overlay.id='secAlertOverlay';
+  overlay.innerHTML=`
+    <div id="secAlert">
+      <div class="sa-top-bar"></div>
+      <div class="sa-icon">🔒</div>
+      <div class="sa-title">ACESSO RESTRITO</div>
+      <div class="sa-subtitle">Você não possui privilégios de administrador deste site.<br>Suas informações não estão acessíveis.</div>
+      <div class="sa-divider"></div>
+      <div class="sa-info-block">
+        <div class="sa-info-label">[ DADOS DO ACESSO REGISTRADO ]</div>
+        ${ipLine}${geoLine}
+        <div class="sa-row"><span class="sa-lbl">🖥️ Plataforma</span><span class="sa-val">${di.platform}</span></div>
+        <div class="sa-row"><span class="sa-lbl">📐 Resolução</span><span class="sa-val">${di.screen}</span></div>
+        <div class="sa-row"><span class="sa-lbl">🗣️ Idioma</span><span class="sa-val">${di.lang}</span></div>
+        ${tzLine}
+        <div class="sa-row"><span class="sa-lbl">🕐 Data/Hora</span><span class="sa-val">${di.now}</span></div>
+        <div class="sa-row"><span class="sa-lbl">⚠️ Ação detectada</span><span class="sa-val warn">${reason}</span></div>
+      </div>
+      <div class="sa-warning">Esta tentativa foi registrada. Conteúdo protegido por direitos autorais — Prof. Marco Dias · 2026.</div>
+      <button id="saCloseBtn" onclick="document.getElementById('secAlertOverlay').remove()">Entendido</button>
+    </div>`;
+  document.body.appendChild(overlay);
+  setTimeout(()=>{const el=document.getElementById('secAlertOverlay');if(el)el.remove();},15000);
+}
+
+document.addEventListener('contextmenu',e=>{e.preventDefault();showSecurityAlert('Tentativa de acesso ao menu de contexto (clique direito)');},true);
+document.addEventListener('keydown',e=>{
+  const c=e.ctrlKey||e.metaKey;
+  const pairs=[
+    [e.key==='F12'||e.keyCode===123,false,'DevTools (F12)'],
+    [c&&e.shiftKey&&'Ii'.includes(e.key),false,'Inspetor de Elementos (Ctrl+Shift+I)'],
+    [c&&e.shiftKey&&'Jj'.includes(e.key),false,'Console JavaScript (Ctrl+Shift+J)'],
+    [c&&e.shiftKey&&'Cc'.includes(e.key),false,'Inspecionar Elemento (Ctrl+Shift+C)'],
+    [c&&'Uu'.includes(e.key),false,'Ver Código-fonte (Ctrl+U)'],
+    [c&&'Ss'.includes(e.key),false,'Salvar Página (Ctrl+S)'],
+    [c&&'Pp'.includes(e.key),false,'Imprimir Página (Ctrl+P)'],
+    [c&&'Aa'.includes(e.key),false,'Selecionar Tudo (Ctrl+A)'],
+    [c&&!e.shiftKey&&'Cc'.includes(e.key),false,'Copiar (Ctrl+C)'],
+  ];
+  for(const[cond,,label] of pairs){
+    if(cond){e.preventDefault();e.stopPropagation();showSecurityAlert(`Tentativa: ${label}`);return false;}
+  }
+},true);
+document.addEventListener('selectstart',e=>{e.preventDefault();return false;});
+document.addEventListener('dragstart',e=>{e.preventDefault();return false;});
+
+(function devToolsDetector(){
+  const threshold=160; let devOpen=false;
+  setInterval(()=>{
+    const opened=(window.outerWidth-window.innerWidth>threshold)||(window.outerHeight-window.innerHeight>threshold);
+    if(opened&&!devOpen){devOpen=true;showSecurityAlert('Ferramentas de desenvolvedor detectadas abertas');}
+    if(!opened)devOpen=false;
+  },1000);
+})();
+
+document.getElementById('modalOverlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// ══════════════════════════════════
+//  PARTICLES
+// ══════════════════════════════════
+function createParticles(){
+  const c=document.getElementById('particles');
+  for(let i=0;i<20;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    p.style.cssText=`left:${Math.random()*100}vw;animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*10}s;width:${1+Math.random()*2}px;height:${1+Math.random()*2}px;background:${Math.random()>.5?'var(--gold)':'var(--neon-cyan)'};opacity:${.1+Math.random()*.4};`;
+    c.appendChild(p);
+  }
+}
+
+renderBooks();
+createParticles();
+</script>
+</body>
+</html>
